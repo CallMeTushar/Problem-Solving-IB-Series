@@ -1,0 +1,53 @@
+public class Solution {
+   static int mod = 1_000_000_007;
+
+	static public long pow(long x, int n) {
+
+		if (n == 0)
+			return 1;
+
+		long p = pow(x, n / 2);
+
+		p = (p * p) % mod;
+
+		if (n % 2 == 1)
+			p = (p * x) % mod;
+
+		return p;
+
+	}
+
+	static public int solve(int a, ArrayList<Integer> arr) {
+
+		long[] fact = new long[a + 1];
+
+		fact[0] = 1;
+
+		for (int i = 1; i < fact.length; i++)
+			fact[i] = (fact[i - 1] * (i % mod)) % mod;
+
+		long ans = fact[a-arr.size()];
+		int li = 0;
+		Collections.sort(arr);
+
+		for (int i = 0; i < arr.size(); i++) {
+			long ways;
+
+			if (i == 0) {
+				ways = 1;
+			}
+
+			else {
+				ways = pow(2, arr.get(i) - li - 2);
+			}
+
+			ans = (((ans * pow(fact[arr.get(i) - li - 1], mod - 2)) % mod) * ways) % mod;
+			li = arr.get(i);
+		}
+
+		ans = (ans * pow(fact[a - li], mod - 2)) % mod;
+
+		return (int) ans;
+
+	}
+}
