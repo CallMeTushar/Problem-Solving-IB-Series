@@ -1,0 +1,36 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public ArrayList<Integer> findPerm(final String str, int B) {
+
+		int[] arr = new int[B];
+		int val = 1;
+		int i = 0;
+
+		while (i <= str.length()) {
+
+			if (i == str.length() || str.charAt(i) == 'I') {
+				arr[i] = val;
+				val++;
+
+				int j = i - 1;
+
+				while (j >= 0 && arr[j] == 0) {
+					arr[j--] = val++;
+				}
+
+			}
+
+			i++;
+
+		}
+
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+
+		for (i = 0; i < arr.length; i++) {
+			ans.add(arr[i]);
+		}
+
+		return ans;
+
+	}
+}
