@@ -1,1 +1,1 @@
-Repo for posting solutions to questions to programming questions on InterviewBit
+Repo for posting solutions of programming questions on InterviewBit
