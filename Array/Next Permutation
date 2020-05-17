@@ -1,0 +1,45 @@
+public class Solution {
+    public static ArrayList<Integer> nextPermutation(ArrayList<Integer> A) {
+
+		int i = A.size() - 2;
+
+		while (i >= 0 && A.get(i) > A.get(i + 1)) {
+			i--;
+		}
+
+		if (i >= 0) {
+
+			int ans = Integer.MAX_VALUE;
+			int t = -1;
+
+			for (int j = i + 1; j < A.size(); j++) {
+
+				if (A.get(j) > A.get(i) && A.get(j) < ans) {
+					ans = A.get(j);
+					t = j;
+				}
+
+			}
+
+			int t1 = A.get(t);
+			int t2 = A.get(i);
+
+			A.set(t, t2);
+			A.set(i, t1);
+		}
+
+		int lo = i + 1;
+		int hi = A.size() - 1;
+
+		while (lo < hi) {
+			int t1 = A.get(lo);
+			int t2 = A.get(hi);
+			A.set(lo, t2);
+			A.set(hi, t1);
+			lo++;
+			hi--;
+		}
+
+		return A;
+
+	}}
