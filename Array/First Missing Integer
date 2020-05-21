@@ -1,0 +1,37 @@
+public class Solution {
+	public static int firstMissingPositive(ArrayList<Integer> arr) {
+		arr.add(0); // to handle [1] and [-5] different cases or take idx as -1..
+		int i = 0;
+
+		while (i < arr.size()) {
+
+			if (arr.get(i) < 0 || arr.get(i) >= arr.size() || arr.get(i) == i) {
+				i++;
+				continue;
+			}
+
+			int idx = arr.get(i);
+
+			if (arr.get(idx) == idx) {
+				i++;
+				continue;
+			}
+
+			int t1 = arr.get(i);
+			int t2 = arr.get(idx);
+
+			arr.set(i, t2);
+			arr.set(idx, t1);
+
+		}
+
+		for (i = 1; i < arr.size(); i++) {
+			if (arr.get(i) != i)
+				return i;
+		}
+
+		return arr.size();
+
+	}
+
+}
