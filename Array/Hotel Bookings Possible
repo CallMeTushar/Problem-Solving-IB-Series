@@ -1,4 +1,6 @@
 public class Solution {
+
+// Alternative : make Al of pair st 1 => arrival and 2=> departure . arrival me inc count and departure pe dec.Max count is min rooms reqd
     
 	static class Pair implements Comparable<Pair> {
 		int s;
