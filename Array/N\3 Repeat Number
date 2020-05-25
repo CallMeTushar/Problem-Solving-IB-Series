@@ -1,0 +1,60 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST
+     public int repeatedNumber(final List<Integer> arr) {
+
+		long[] a = new long[2];
+		int[] c = new int[2];
+
+		Arrays.fill(a, Long.MAX_VALUE);
+
+		for (int i = 0; i < arr.size(); i++) {
+
+			if (a[0] == arr.get(i)) {
+				c[0]++;
+			}
+
+			else if (a[1] == arr.get(i)) {
+				c[1]++;
+			}
+
+			else if (c[0] == 0) {
+				c[0] = 1;
+				a[0] = arr.get(i);
+			}
+
+			else if (c[1] == 0) {
+				c[1] = 1;
+				a[1] = arr.get(i);
+			}
+
+			else {
+				c[0]--;
+				c[1]--;
+			}
+
+		}
+
+		// a contains potential candiates
+
+		c[0] = c[1] = 0;
+
+		for (int i = 0; i < arr.size(); i++) {
+
+			if (arr.get(i) == a[0])
+				c[0]++;
+
+			else if (arr.get(i) == a[1])
+				c[1]++;
+
+		}
+
+		if (c[0] > arr.size() / 3)
+			return (int) a[0];
+
+		else if (c[1] > arr.size() / 3)
+			return (int) a[1];
+
+		return -1;
+	}
+
+}
