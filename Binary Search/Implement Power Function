@@ -1,0 +1,17 @@
+public class Solution {
+	public int pow(int x, int n, int d) {
+
+		if (n == 0)
+			return ((1) % d + d) % d;
+
+		long rr = pow(x, n / 2, d);
+
+		rr = (((long) rr * rr) % d + d) % d;
+
+		if (n % 2 == 1)
+			rr = (((long) rr * x) % d + d) % d;
+
+		return (int) rr;
+
+	}
+}
