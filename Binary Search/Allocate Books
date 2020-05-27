@@ -1,0 +1,60 @@
+public class Solution {
+    public int books(ArrayList<Integer> arr, int student) {
+
+if(student>arr.size()) {
+			return -1;
+		}
+
+		long lo = 0, hi = 0;
+
+		for (int i = 0; i < arr.size(); i++) {
+			hi += arr.get(i);
+		}
+		long ans = -1;
+
+		while (lo <= hi) {
+
+			long mid = lo + (hi - lo) / 2;
+
+			if (isPossible(arr, mid, student)) {
+				ans = mid;
+				hi = mid - 1;
+			}
+
+			else {
+				lo = mid + 1;
+			}
+
+		}
+
+		return (int) ans;
+
+	}
+
+	private boolean isPossible(ArrayList<Integer> arr, long mid, int students) {
+
+		long cur = mid;
+		students--;
+
+		for (int i = 0; i < arr.size(); i++) {
+
+			if (cur - arr.get(i) >= 0) {
+				cur -= arr.get(i);
+			}
+
+			else {
+				cur = mid;
+				i--;
+				students--;
+
+				if (students < 0)
+					return false;
+			}
+
+		}
+
+		return true;
+
+	}
+
+}
