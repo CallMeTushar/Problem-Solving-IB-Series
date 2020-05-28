@@ -1,0 +1,38 @@
+public class Solution {
+	public int isPalindrome(String str) {
+
+		int lo = 0, hi = str.length() - 1;
+
+		while (lo <= hi) {
+
+			char ch1 = str.charAt(lo);
+			char ch2 = str.charAt(hi);
+
+			if ((ch1 >= 'a' && ch1 <= 'z') || (ch1 >= 'A' && ch1 <= 'Z') || (ch1 >= '0' && ch1 <= '9')) {
+
+			}
+
+			else {
+				lo++;
+				continue;
+			}
+
+			if ((ch2 >= 'a' && ch2 <= 'z') || (ch2 >= 'A' && ch2 <= 'Z') || (ch2 >= '0' && ch2 <= '9')) {
+
+			}
+
+			else {
+				hi--;
+				continue;
+			}
+
+			if (Character.toLowerCase(str.charAt(lo++)) != Character.toLowerCase(str.charAt(hi--))) {
+				return 0;
+			}
+
+		}
+
+		return 1;
+
+	}
+}
