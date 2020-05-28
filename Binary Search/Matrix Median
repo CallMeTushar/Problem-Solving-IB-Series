@@ -1,0 +1,50 @@
+public class Solution {
+public static int findMedian(ArrayList<ArrayList<Integer>> arr) {
+
+		int min = Integer.MAX_VALUE;
+		int max = Integer.MIN_VALUE;
+
+		for (int i = 0; i < arr.size(); i++) {
+			min = Math.min(min, arr.get(i).get(0));
+			max = Math.max(max, arr.get(i).get(arr.get(0).size() - 1));
+		}
+
+		int d = ((arr.size() * arr.get(0).size()) + 1) / 2;
+
+		while (min < max) {
+
+//			System.out.println(min + " " + max);
+
+			int mid = min + (max - min) / 2;
+			int pos = 0;
+
+			for (int i = 0; i < arr.size(); i++) {
+
+				int si = Collections.binarySearch(arr.get(i), mid);
+
+				if (si < 0) {
+					si = -(si + 1);
+				}
+
+				else {
+					while (si < arr.get(0).size() && arr.get(i).get(si) == mid) {
+						si++;
+					}
+				}
+
+				pos += si;
+			}
+
+			if (pos < d)
+				min = mid + 1;
+
+			else
+				max = mid;
+
+		}
+
+		return min;
+
+	}
+
+}
