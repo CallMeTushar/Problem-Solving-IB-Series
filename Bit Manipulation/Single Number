@@ -1,0 +1,11 @@
+public int singleNumber(final List<Integer> arr) {
+
+		int xor = 0;
+
+		for (int i = 0; i < arr.size(); i++) {
+			xor = xor ^ arr.get(i);
+		}
+
+		return xor;
+
+	}
