@@ -1,0 +1,50 @@
+public class Solution {
+    // DO NOT MODIFY BOTH THE LISTS
+   
+public double findMedianSortedArrays(final List<Integer> a, final List<Integer> b) {
+
+		// a should be smaller
+
+		if (a.size() > b.size()) {
+			return findMedianSortedArrays(b, a);
+		}
+
+		int lo = 0, hi = a.size();
+
+		while (lo <= hi) {
+
+			int xp = lo + (hi - lo) / 2;
+			int yp = (a.size() + b.size() + 1) / 2 - xp;
+
+			int x1 = xp == 0 ? Integer.MIN_VALUE : a.get(xp - 1);
+			int x2 = yp == 0 ? Integer.MIN_VALUE : b.get(yp - 1);
+			int y1 = xp == a.size() ? Integer.MAX_VALUE : a.get(xp);
+			int y2 = yp == b.size() ? Integer.MAX_VALUE : b.get(yp);
+
+			if (x1 <= y2 && x2 <= y1) {
+
+				if ((a.size() + b.size()) % 2 == 0) {
+					return (Math.max(x1, x2) + Math.min(y1, y2)) / 2.0;
+				}
+
+				else {
+					return Math.max(x1, x2);
+				}
+
+			}
+			
+			else if(x1>y2) {
+				hi=xp-1;
+			}
+			
+			else {
+				lo=xp+1;
+			}
+
+		}
+
+		return -1;
+
+	}
+
+}
