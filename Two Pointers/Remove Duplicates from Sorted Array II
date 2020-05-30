@@ -1,0 +1,44 @@
+public class Solution {
+    public static int removeDuplicates(ArrayList<Integer> arr) {
+
+		if (arr.size() == 0)
+			return 0;
+
+		int lo = 0;
+		int i = 1;
+		int c = 1;
+
+		while (i < arr.size()) {
+
+			if (arr.get(i).intValue() == arr.get(i - 1).intValue()) {
+				c++;
+			}
+
+			else {
+				arr.set(lo, arr.get(i - 1));
+				lo++;
+
+				if (c > 1) {
+					arr.set(lo, arr.get(i - 1));
+					lo++;
+				}
+
+				c = 1;
+			}
+
+			i++;
+
+		}
+
+		arr.set(lo, arr.get(arr.size() - 1));
+		lo++;
+		
+		if (c > 1) {
+			arr.set(lo, arr.get(i - 1));
+			lo++;
+		}
+
+		return lo;
+
+	}
+}
