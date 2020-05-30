@@ -1,0 +1,29 @@
+public class Solution {
+    public void sortColors(ArrayList<Integer> arr) {
+
+		int lo = 0, hi = arr.size() - 1;
+		int i = 0;
+
+		while (i <= hi) {
+
+			int val = arr.get(i);
+
+			if (val == 0) {
+				Collections.swap(arr, lo, i);
+				i++;
+				lo++;
+			}
+
+			else if (val == 1) {
+				i++;
+			}
+
+			else {
+				Collections.swap(arr, i, hi);
+				hi--;
+			}
+
+		}
+
+	}
+}
