@@ -1,6 +1,5 @@
 public class Solution {
     // DO NOT MODIFY BOTH THE LISTS
-   
 public double findMedianSortedArrays(final List<Integer> a, final List<Integer> b) {
 
 		// a should be smaller
