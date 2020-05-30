@@ -1,6 +1,5 @@
 public class Solution {
    public static int solve(ArrayList<Integer> arr, int B, int c) {
-
 		if (arr.size() == 0)
 			return 0;
 
