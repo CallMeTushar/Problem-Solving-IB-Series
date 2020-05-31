@@ -1,0 +1,29 @@
+public class Solution {
+   public int solve(ArrayList<Integer> a, ArrayList<Integer> b, ArrayList<Integer> c) {
+
+		int i = 0, j = 0, k = 0;
+
+		int ans = Integer.MAX_VALUE;
+
+		while (i < a.size() && j < b.size() && k < c.size()) {
+
+			int min = Math.min(Math.min(a.get(i), b.get(j)), c.get(k));
+			int max = Math.max(Math.max(a.get(i), b.get(j)), c.get(k));
+
+			ans = Math.min(ans, max - min);
+
+			if (a.get(i) == min)
+				i++;
+
+			else if (b.get(j) == min)  // can be if as well
+				j++;
+
+			else if (c.get(k) == min)  // can be if as well 
+				k++;
+
+		}
+
+		return ans;
+
+	}
+}
