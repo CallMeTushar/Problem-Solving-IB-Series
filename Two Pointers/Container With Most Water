@@ -1,0 +1,23 @@
+public class Solution {
+    public int maxArea(ArrayList<Integer> arr) {
+
+		long area = 0;
+
+		int lo = 0, hi = arr.size() - 1;
+
+		while (lo < hi) {
+
+			area = Math.max(area, Math.min(arr.get(lo), arr.get(hi)) * (long) (hi - lo));
+
+			if (arr.get(lo) < arr.get(hi))
+				lo++;
+
+			else
+				hi--;
+
+		}
+
+		return (int) area;
+
+	}
+}
