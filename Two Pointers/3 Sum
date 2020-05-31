@@ -1,0 +1,37 @@
+public class Solution {
+   public int threeSumClosest(ArrayList<Integer> arr, int tar) {
+
+		long ans =  1000000000;
+
+		Collections.sort(arr);
+
+		for (int i = 0; i < arr.size() - 2; i++) {
+
+			int j = i + 1;
+			int k = arr.size() - 1;
+
+			while (j < k) {
+
+				long sum = arr.get(i) + arr.get(j) + arr.get(k);
+
+				if (Math.abs(tar - sum) < Math.abs(ans - tar)) {
+					ans = sum;
+				}
+				
+				if (sum < tar) {
+					j++;
+				}
+
+				else {
+					k--;
+				}
+
+			}
+
+		}
+
+		return (int) ans;
+
+	}
+
+}
