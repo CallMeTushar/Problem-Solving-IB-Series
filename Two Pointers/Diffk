@@ -1,0 +1,23 @@
+public class Solution {
+	public static int diffPossible(ArrayList<Integer> arr, int k) {
+
+		int i = 0, j = 1;
+
+		while (j < arr.size()) {
+
+			int diff = arr.get(j) - arr.get(i);
+
+			if (diff == k && i != j)
+				return 1;
+
+			if (diff <= k)  // this must be before i++ so that i never exceeds j when i=j. Also = must be there for case when diff=k but i=j (k=0)
+				j++;
+
+			else
+				i++;
+
+		}
+
+		return 0;
+
+	}}
