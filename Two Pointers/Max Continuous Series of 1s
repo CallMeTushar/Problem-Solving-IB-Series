@@ -1,0 +1,42 @@
+public class Solution {
+    public static ArrayList<Integer> maxone(ArrayList<Integer> arr, int k) {
+
+		int ans = 0;
+		int start = 0;
+		int c0 = 0;
+		int si = -1, ei = -1;
+
+		for (int end = 0; end < arr.size(); end++) {
+
+			if (arr.get(end) == 0) {
+
+				c0++;
+
+				while (c0 > k) {
+
+					if (arr.get(start) == 0)
+						c0--;
+
+					start++;
+				}
+
+			}
+
+			if (end - start + 1 > ans) {
+				ans = end - start + 1;
+				si = start;
+				ei = end;
+			}
+		}
+
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+
+		for (int i = si; i <= ei && i >= 0; i++) {
+			temp.add(i);
+		}
+
+		return temp;
+
+	}
+
+}
