@@ -1,0 +1,29 @@
+public class Solution {
+public static String solve(String str) {
+
+		int i, j = str.length() - 1;
+		StringBuilder sb = new StringBuilder();
+
+		while (j >= 0) {
+
+			while (j >= 0 && str.charAt(j) == ' ')
+				j--;
+
+			i = j;
+
+			while (i >= 0 && str.charAt(i) != ' ')
+				i--;
+
+			boolean lw = i < 0;
+			sb.append(str.substring(i + 1, j + 1));
+
+			if (!lw)
+				sb.append(" ");
+
+			j = i - 1;
+
+		}
+
+		return sb.toString();
+	}
+}
