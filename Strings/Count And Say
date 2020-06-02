@@ -1,0 +1,42 @@
+public class Solution {
+public static String countAndSay(int n) {
+
+		StringBuilder ans = new StringBuilder("1");
+
+		for (int i = 1; i < n; i++) {
+
+			StringBuilder temp = new StringBuilder();
+			int j = 1;
+			int val = ans.charAt(0) - '0';
+			int c = 1;
+
+			while (j < ans.length()) {
+
+				if(ans.charAt(j) == ans.charAt(j - 1)) {
+					j++;
+					c++;
+					continue;
+				}
+				temp.append(c);
+				temp.append(val);
+
+				if (j < ans.length()) {
+					val = ans.charAt(j) - '0';
+					c = 1;
+				}
+
+				j++;
+
+			}
+
+			temp.append(c);
+			temp.append(val);
+
+			ans = temp;
+
+		}
+
+		return ans.toString();
+
+	}
+}
