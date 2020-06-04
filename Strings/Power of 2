@@ -1,0 +1,53 @@
+public class Solution {
+    public static int power(String str) {
+
+		if (str.length() == 1 && str.charAt(0) - '0' <= 1)
+			return 0;
+
+		boolean flag = true;
+
+		while (flag) {
+
+			if (str.length() == 1 && str.charAt(0) == '1') {
+				return 1;
+			}
+
+			if ((str.charAt(str.length() - 1) - '0') % 2 == 1)
+				return 0;
+
+			str = divide(str);
+
+		}
+
+		return 1;
+
+	}
+
+	public static String divide(String str) {
+
+		StringBuilder ans = new StringBuilder();
+
+		int num = 0;
+
+		for (int i = 0; i < str.length(); i++) {
+
+			num = num * 10 + str.charAt(i) - '0';
+			int a = num / 2;
+
+			if (a == 0 && ans.length() != 0) {
+				ans.append(0);
+				continue;
+			}
+
+			if (num <= 1)
+				continue;
+
+			ans.append(a);
+			num %= 2;
+
+		}
+
+		return ans.toString();
+
+	}
+}
