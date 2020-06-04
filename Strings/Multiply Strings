@@ -1,0 +1,98 @@
+public class Solution {
+    public static String multiply(String a, String b) {
+
+		int ie = 0;
+
+		while (ie < a.length() && a.charAt(ie) == '0') {
+			ie++;
+		}
+
+		a = a.substring(ie);
+
+		int je = 0;
+
+		while (je < b.length() && b.charAt(je) == '0') {
+			je++;
+		}
+
+		b = b.substring(je);
+
+		if (a.length() == 0 || b.length() == 0)
+			return "0";
+
+		String ans = "";
+
+		for (int i = b.length() - 1; i >= 0; i--) {
+
+			StringBuilder temp = new StringBuilder();
+
+			int num = b.charAt(i) - '0';
+			if (num == 0)
+				continue;
+
+			int c = 0;
+
+			for (int j = a.length() - 1; j >= 0; j--) {
+
+				int prod = (a.charAt(j) - '0') * num + c;
+				temp.append(prod % 10);
+				c = prod / 10;
+			}
+			
+			if(c>0)
+				temp.append(c);
+
+			temp.reverse();
+
+			// append zeroes after reversing
+			int val = b.length() - 1 - i;
+
+			while (val-- > 0)
+				temp.append(0);
+
+			if (ans.length() == 0) {
+				ans = temp.toString();
+			}
+
+			else {
+				ans = add(ans, temp.toString());
+			}
+
+		}
+
+		return ans;
+	}
+
+	public static String add(String a, String b) {
+
+		StringBuilder ans = new StringBuilder();
+
+		int i = a.length() - 1;
+		int j = b.length() - 1;
+		int c = 0;
+
+		while (i >= 0 || j >= 0) {
+
+			int sum = c;
+
+			if (i >= 0)
+				sum += a.charAt(i) - '0';
+			if (j >= 0)
+				sum += b.charAt(j) - '0';
+
+			ans.append(sum % 10);
+			c = sum / 10;
+
+			i--;
+			j--;
+
+		}
+
+		if (c > 0)
+			ans.append(c);
+
+		return ans.reverse().toString();
+
+	}
+
+}
