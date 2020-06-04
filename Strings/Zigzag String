@@ -1,0 +1,54 @@
+public class Solution {
+public static String convert(String str, int n) {
+		
+		if(n==1)
+			return str;
+
+		StringBuilder sb = new StringBuilder();
+
+		ArrayList<ArrayList<Character>> temp = new ArrayList<>();
+
+		for (int i = 0; i < n; i++)
+			temp.add(new ArrayList<>());
+
+		boolean down = true;
+		int cr = 0;
+
+		for (int i = 0; i < str.length(); i++) {
+
+			temp.get(cr).add(str.charAt(i));
+
+			if (down) {
+				cr++;
+
+				if (cr == n) {
+					cr-=2;
+					down = false;
+				}
+			}
+
+			else {
+
+				cr--;
+
+				if (cr < 0) {
+					cr+=2;
+					down = true;
+				}
+
+			}
+
+		}
+
+		for (int i = 0; i < temp.size(); i++) {
+
+			for (int j = 0; j < temp.get(i).size(); j++) {
+				sb.append(temp.get(i).get(j));
+			}
+
+		}
+
+		return sb.toString();
+
+	}
+}
