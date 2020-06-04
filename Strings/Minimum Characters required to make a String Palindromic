@@ -1,0 +1,47 @@
+public class Solution {
+    public static int solve(String str) {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(str);
+		sb.append('%');
+		sb.append(new StringBuilder(str).reverse().toString());
+
+		int[] lps = fill(sb);
+
+		return str.length() - lps[lps.length - 1];
+
+	}
+
+	private static int[] fill(StringBuilder sb) {
+
+		int[] arr = new int[sb.length()];
+		arr[0] = 0;
+		int len = 0;
+		int i = 1;
+
+		while (i < sb.length()) {
+
+			if (sb.charAt(i) == sb.charAt(len)) {
+				len++;
+				arr[i]=len;
+				i++;
+			}
+
+			else {
+
+				if (len == 0) {
+					i++;
+				}
+
+				else {
+					len = arr[len - 1];
+				}
+
+			}
+
+		}
+
+		return arr;
+
+	}
+}
