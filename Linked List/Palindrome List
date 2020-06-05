@@ -1,0 +1,33 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+public class Solution {
+    
+    ListNode left;
+    
+    public int lPalin(ListNode right) {
+        
+        left=right;
+        return help(right);
+    }
+    
+    public int help(ListNode right){
+         if(right==null)
+        return 1;
+        
+        int val=help(right.next);
+        
+        if(left.val!=right.val)
+        return 0;
+        
+        left=left.next;
+        
+        return val;
+    }
+    
+}
