@@ -1,0 +1,35 @@
+public class Solution {
+    public int nTriang(ArrayList<Integer> arr) {
+
+		int mod = (int) 1e9 + 7;
+		int ans = 0;
+		
+		Collections.sort(arr);
+
+		for (int i = 2; i < arr.size(); i++) {
+
+			int l = 0, r = i - 1;
+
+			while (l < r) {
+
+				long sum = (long) arr.get(l) + arr.get(r);
+
+				if (sum > arr.get(i)) {
+					ans = (ans + r - l) % mod; // l r i se possible => l+1,l+2..... r , i se bhi possible
+					r--;
+
+				}
+
+				else {
+					l++;
+				}
+
+			}
+
+		}
+		
+		return ans;
+
+	}
+
+}
