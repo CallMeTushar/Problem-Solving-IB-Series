@@ -1,0 +1,100 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode A, ListNode B) {
+        
+        ListNode head=null,tail=null;
+        int c=0;
+        
+        while(A!=null && B!=null){
+            
+            int sum=A.val+B.val+c;
+            c=sum/10;
+            sum%=10;
+            
+            ListNode nn=new ListNode(sum);
+            
+            if(head==null){
+                head=tail=nn;
+            }
+            
+            else{
+                tail.next=nn;
+                tail=nn;
+            }
+            
+            A=A.next;
+            B=B.next;
+            
+        }
+        
+        while(A!=null){
+            
+            int sum=A.val+c;
+             c=sum/10;
+            sum%=10;
+            
+            ListNode nn=new ListNode(sum);
+            
+            if(head==null){
+                head=tail=nn;
+            }
+            
+            else{
+                tail.next=nn;
+                tail=nn;
+            }
+            
+            A=A.next;
+            
+        }
+        
+        while(B!=null){
+            
+            int sum=B.val+c;
+             c=sum/10;
+            sum%=10;
+            
+            ListNode nn=new ListNode(sum);
+            
+            if(head==null){
+                head=tail=nn;
+            }
+            
+            else{
+                tail.next=nn;
+                tail=nn;
+            }
+            
+            B=B.next;
+            
+        }
+        
+        
+        if(c>0){
+            
+             ListNode nn=new ListNode(c);
+            
+            if(head==null){
+                head=tail=nn;
+            }
+            
+            else{
+                tail.next=nn;
+                tail=nn;
+            }
+            
+        }
+        
+        return head;
+        
+        
+        
+    }
+}
