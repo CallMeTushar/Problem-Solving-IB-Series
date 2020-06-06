@@ -1,0 +1,39 @@
+public class Solution {
+    public static ArrayList<String> restoreIpAddresses(String A) {
+		ArrayList<String> ans = new ArrayList<String>();
+		Ipadd(0, A, 3, ans, "");
+
+		return ans;
+
+	}
+
+	private static void Ipadd(int i, String str, int dot, ArrayList<String> ans, String temp) {
+
+		if (dot == 0) {
+
+			if (i < str.length() && i >= str.length() - 3 && Integer.valueOf(str.substring(i)) <= 255) {
+
+				if (str.charAt(i) == '0') {
+					if (i == str.length() - 1)
+						ans.add(temp + str.substring(i));
+				}
+
+				else
+					ans.add(temp + str.substring(i));
+			}
+
+			return;
+
+		}
+
+		if (i < str.length())
+			Ipadd(i + 1, str, dot - 1, ans, temp + str.charAt(i) + ".");
+
+		if (i + 1 < str.length() && str.charAt(i) != '0')
+			Ipadd(i + 2, str, dot - 1, ans, temp + str.charAt(i) + str.charAt(i + 1) + ".");
+
+		if (i + 2 < str.length() && str.charAt(i) != '0' && Integer.valueOf(str.substring(i, i + 3)) <= 255)
+			Ipadd(i + 3, str, dot - 1, ans, temp + str.charAt(i) + str.charAt(i + 1) + str.charAt(i + 2) + ".");
+
+	}
+}
