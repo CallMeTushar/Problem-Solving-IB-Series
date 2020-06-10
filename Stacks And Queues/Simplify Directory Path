@@ -1,0 +1,60 @@
+public class Solution {
+    public static String simplifyPath(String str) {
+
+		Stack<String> s = new Stack<String>();
+		StringBuilder temp = new StringBuilder();
+
+		for (int i = 0; i < str.length(); i++) {
+
+			char ch = str.charAt(i);
+
+			if (ch == '/') {
+				if (temp.length() > 0) {
+					s.push(temp.toString());
+					temp = new StringBuilder();
+				}
+			}
+
+			else if (ch == '.') {
+
+				if (i + 1 < str.length()) {
+					if (str.charAt(i + 1) == '.') {
+						if (!s.isEmpty()) {
+							s.pop();
+							i++;
+						}
+					}
+				}
+
+			}
+
+			else {
+				temp.append(ch);
+			}
+
+		}
+
+		if (temp.length() > 0) {
+			s.push(temp.toString());
+		}
+
+		StringBuilder ans = new StringBuilder();
+	
+
+
+
+	while (!s.isEmpty()) {
+			ans.insert(0,'/'+s.pop());
+		}
+		
+		if(ans.length()==0) {
+			ans.append('/');
+		}
+
+		
+
+		return ans.toString();
+
+	}
+
+}
