@@ -1,0 +1,46 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public static int[] slidingMaximum(final int[] arr, int k) {
+
+		Deque<Integer> dq = new LinkedList<>();
+		int[] ans = new int[arr.length - Math.min(k, arr.length) + 1];
+		int ai = 0;
+
+		// work for 1st k elements
+
+		int i;
+
+		for (i = 0; i < Math.min(k, arr.length); i++) {
+
+			while (!dq.isEmpty() && arr[dq.peekLast()] <= arr[i]) {
+				dq.pollLast();
+			}
+
+			dq.addLast(i);
+		}
+
+		ans[ai++] = arr[dq.peekFirst()];
+
+		for (; i < arr.length; i++) {
+
+			// remove non needed elements from start
+			while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
+				dq.pollFirst();
+			}
+
+			// remove smaller elements from end
+
+			while (!dq.isEmpty() && arr[dq.peekLast()] <= arr[i]) {
+				dq.pollLast();
+			}
+
+			dq.addLast(i);
+
+			ans[ai++] = arr[dq.peekFirst()];
+
+		}
+
+		return ans;
+
+	}
+}
