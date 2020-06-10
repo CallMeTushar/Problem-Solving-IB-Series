@@ -1,0 +1,41 @@
+public class Solution {
+   	public int colorful(int A) {
+
+		ArrayList<Long> arr = new ArrayList<>();
+		HashMap<Long, Boolean> map = new HashMap<>();
+
+		while (A > 0) {
+			arr.add((long) A % 10);
+			if (map.containsKey((long) A % 10))
+				return 0;
+				
+			map.put((long)A%10,true);
+
+			A /= 10;
+		}
+
+		ArrayList<Long> t = new ArrayList<>();
+
+		while (arr.size() > 1) {
+
+			for (int j = 1; j < arr.size(); j++) {
+
+				long prod = arr.get(j) * arr.get(j - 1);
+				t.add(prod);
+
+				if (map.containsKey(prod))
+					return 0;
+
+				map.put(prod, true);
+
+			}
+
+			arr = t;
+			t = new ArrayList<>();
+
+		}
+
+		return 1;
+
+	}
+}
