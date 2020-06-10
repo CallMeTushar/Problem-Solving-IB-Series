@@ -1,0 +1,40 @@
+public class Solution {
+public static int braces(String str) {
+		Stack<Character> s = new Stack<>();
+
+		for (int i = 0; i < str.length(); i++) {
+
+			char ch = str.charAt(i);
+
+			if (ch == ')') {
+
+				int c = 0;
+				boolean oper = false;
+
+				while (!s.isEmpty() && s.peek() != '(') {
+					char t = s.pop();
+					if (t == '+' || t == '-' || t == '*' || t == '/') {
+						oper = true;
+					}
+					c++;
+				}
+
+
+				if (c == 0 || !oper)
+					return 1;
+
+				s.pop(); // for (
+
+			}
+
+			else
+				s.push(ch);
+
+		}
+
+		return 0;
+
+	}
+
+
+}
