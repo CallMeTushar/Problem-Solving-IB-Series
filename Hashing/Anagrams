@@ -1,0 +1,37 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    	public ArrayList<ArrayList<Integer>> anagrams(final List<String> arr) {
+
+		HashMap<String, ArrayList<Integer>> map = new HashMap<>();
+
+		for (int i = 0; i < arr.size(); i++) {
+
+			int[] freq = new int[26];
+
+			for (int j = 0; j < arr.get(i).length(); j++) {
+				freq[arr.get(i).charAt(j) - 'a']++;
+			}
+
+			StringBuilder sb = new StringBuilder();
+
+			for (int val : freq)
+				sb.append(val + "#");
+
+			if (!map.containsKey(sb.toString())) {
+				map.put(sb.toString(), new ArrayList<Integer>());
+			}
+
+			map.get(sb.toString()).add(i+1);
+
+		}
+
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+
+	for (ArrayList<Integer> key : map.values()) {
+			ans.add(key);
+		}
+
+		return ans;
+
+	}
+}
