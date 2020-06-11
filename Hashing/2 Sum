@@ -1,0 +1,24 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public ArrayList<Integer> twoSum(final List<Integer> arr, int B) {
+
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+		for (int i = 0; i < arr.size(); i++) {
+
+			if (map.containsKey(B - arr.get(i))) {
+				ans.add(map.get(B - arr.get(i)) + 1);
+				ans.add(i + 1);
+				return ans;
+			}
+
+			if (!map.containsKey(arr.get(i)))
+				map.put(arr.get(i), i);
+
+		}
+
+		return ans;
+
+	}
+}
