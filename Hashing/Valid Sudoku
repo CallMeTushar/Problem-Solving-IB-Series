@@ -1,0 +1,40 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+   public int isValidSudoku(final List<String> arr) {
+
+		Set<Character>[] a = new HashSet[9];
+		Set<Character>[] b = new HashSet[9];
+		Set<Character>[] c = new HashSet[9];
+
+		for (int i = 0; i < 9; i++) {
+			a[i] = new HashSet<Character>();
+			b[i] = new HashSet<Character>();
+			c[i] = new HashSet<Character>();
+
+		}
+
+		for (int i = 0; i < arr.size(); i++) {
+
+			for (int j = 0; j < arr.get(i).length(); j++) {
+
+				char ch = arr.get(i).charAt(j);
+				
+				if(ch=='.')
+				continue;
+				
+				int k = 3 * (i / 3) + j / 3;
+
+				if (a[i].contains(ch) || b[j].contains(ch) || c[k].contains(ch))
+					return 0;
+
+				a[i].add(ch);
+				b[j].add(ch);
+				c[k].add(ch);
+			}
+
+		}
+		
+		return 1;
+
+	}
+}
