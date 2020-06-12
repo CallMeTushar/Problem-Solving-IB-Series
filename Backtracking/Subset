@@ -1,0 +1,52 @@
+public class Solution {
+    public static ArrayList<ArrayList<Integer>> subsets(ArrayList<Integer> arr) {
+		Collections.sort(arr);
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		solve(0, arr, new ArrayList<Integer>(), ans);
+
+		Collections.sort(ans, new Comparator<ArrayList<Integer>>() {
+
+			@Override
+			public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
+
+				int i = 0, j = 0;
+
+				while (i < o1.size() && j < o2.size()) {
+
+					if (o1.get(i) < o2.get(j))
+						return -1;
+
+					if (o1.get(i) > o2.get(j))
+						return 1;
+
+					i++;
+					j++;
+				}
+
+				if (i == o1.size())
+					return -1;
+
+				return 1;
+
+			}
+
+		});
+
+		return ans;
+	}
+
+	private static void solve(int i, ArrayList<Integer> arr, ArrayList<Integer> temp,
+			ArrayList<ArrayList<Integer>> ans) {
+
+		if (i == arr.size()) {
+			ans.add(new ArrayList<Integer>(temp));
+			return;
+		}
+
+		solve(i + 1, arr, temp, ans);
+		temp.add(arr.get(i));
+		solve(i + 1, arr, temp, ans);
+		temp.remove(temp.size() - 1);
+
+	}
+}
