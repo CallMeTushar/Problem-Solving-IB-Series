@@ -1,0 +1,28 @@
+public class Solution {
+    public static ArrayList<String> generateParenthesis(int A) {
+		ArrayList<String> ans = new ArrayList<String>();
+
+		solve(0, 0, A, "", ans);
+
+		return ans;
+	}
+
+	private static void solve(int open, int close, int n, String str, ArrayList<String> ans) {
+
+		if(open>n)
+			return;
+		
+		if (open == n && close == n) {
+			ans.add(str);
+			return;
+		}
+
+		if (close > open)
+			return;
+
+		solve(open + 1, close, n, str + "(", ans);
+		solve(open, close + 1, n, str + ")", ans);
+
+	}
+
+}
