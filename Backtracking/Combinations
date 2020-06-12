@@ -1,0 +1,27 @@
+public class Solution {
+   public static ArrayList<ArrayList<Integer>> combine(int n, int B) {
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		solve(1, B, n, new ArrayList<Integer>(), ans);
+		return ans;
+	}
+
+	private static void solve(int i, int r, int n, ArrayList<Integer> temp, ArrayList<ArrayList<Integer>> ans) {
+
+		if (temp.size() == r) {
+			ans.add(new ArrayList<Integer>(temp));
+			return;
+		}
+
+		if (i > n) {
+			return;
+		}
+		
+		temp.add(i);
+		solve(i + 1, r, n, temp, ans);
+		temp.remove(temp.size() - 1);
+		solve(i + 1, r, n, temp, ans);
+		
+
+	}
+
+}
