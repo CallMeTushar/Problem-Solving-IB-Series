@@ -1,0 +1,55 @@
+public class Solution {
+    	public static ArrayList<String> letterCombinations(String str) {
+		return code(str);
+	}
+
+	private static ArrayList<String> code(String str) {
+
+		if (str.length() == 0) {
+			ArrayList<String> br = new ArrayList<>();
+			br.add("");
+			return br;
+		}
+
+		ArrayList<String> ans = new ArrayList<String>();
+
+		ArrayList<String> rr = code(str.substring(1));
+
+		String code = getKey(str.charAt(0) - '0');
+
+		for (int i = 0; i < code.length(); i++) {
+			for (int j = 0; j < rr.size(); j++)
+				ans.add(code.charAt(i) + rr.get(j));
+		}
+
+		return ans;
+
+	}
+
+	public static String getKey(int n) {
+
+		if (n == 0 || n == 1)
+			return n + "";
+
+		if (n == 2)
+			return "abc";
+		if (n == 3)
+			return "def";
+		if (n == 4)
+			return "ghi";
+		if (n == 5)
+			return "jkl";
+		if (n == 6)
+			return "mno";
+		if (n == 7)
+			return "pqrs";
+		if (n == 8)
+			return "tuv";
+		if (n == 9)
+			return "wxyz";
+
+		return "";
+
+	}
+
+}
