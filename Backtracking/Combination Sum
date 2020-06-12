@@ -1,0 +1,45 @@
+public class Solution {
+public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> arr, int sum) {
+
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		Collections.sort(arr);
+
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		int i = 0;
+
+		while (i < arr.size()) {
+
+			int val = arr.get(i);
+			i++;
+			while (i < arr.size() && arr.get(i) == val)
+				i++;
+
+			temp.add(val);
+		}
+
+		combine(0, temp, sum, new ArrayList<Integer>(), ans);
+
+		return ans;
+
+	}
+
+	private void combine(int i, ArrayList<Integer> arr, int sum, ArrayList<Integer> temp,
+			ArrayList<ArrayList<Integer>> ans) {
+
+		if (sum == 0) {
+			ans.add(new ArrayList<Integer>(temp));
+			return;
+		}
+
+		if (i == arr.size() || sum < 0) {
+			return;
+		}
+
+		temp.add(arr.get(i));
+		combine(i, arr, sum - arr.get(i), temp, ans);
+		temp.remove(temp.size() - 1);
+
+		combine(i + 1, arr, sum, temp, ans);
+
+	}
+}
