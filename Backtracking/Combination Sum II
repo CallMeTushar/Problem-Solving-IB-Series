@@ -1,0 +1,37 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> arr, int sum) {
+
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		Collections.sort(arr);
+
+		sum(0, arr, sum, ans, new ArrayList<Integer>());
+
+		return ans;
+
+	}
+
+	public static void sum(int vidx, ArrayList<Integer> arr, int target, ArrayList<ArrayList<Integer>> ans,
+			ArrayList<Integer> t) {
+
+		if (target == 0) {
+			ans.add(new ArrayList<>(t));
+			return;
+		}
+
+		if (target < 0) {
+			return;
+		}
+
+		for (int i = vidx; i < arr.size(); i++) {
+
+			if (i > vidx && arr.get(i) == arr.get(i - 1))
+				continue;
+
+			t.add(arr.get(i));
+			sum(i + 1, arr, target - arr.get(i), ans, t);
+			t.remove(t.size() - 1);
+
+		}
+
+	}
+}
