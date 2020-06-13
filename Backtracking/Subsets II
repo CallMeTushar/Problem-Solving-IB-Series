@@ -1,0 +1,27 @@
+public class Solution {
+    public static ArrayList<ArrayList<Integer>> subsetsWithDup(ArrayList<Integer> arr) {
+
+		Collections.sort(arr);
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		subset(0, arr, new ArrayList<Integer>(), ans);
+		return ans;
+	}
+
+	private static void subset(int index, ArrayList<Integer> arr, ArrayList<Integer> al,
+			ArrayList<ArrayList<Integer>> ans) {
+
+		ans.add(new ArrayList<Integer>(al));
+
+		for (int i = index; i < arr.size(); i++) {
+
+			if (i > index && arr.get(i).equals(arr.get(i - 1)))
+				continue;
+
+			al.add(arr.get(i));
+			subset(i + 1, arr, al, ans);
+			al.remove(al.size() - 1);
+
+		}
+
+	}
+}
