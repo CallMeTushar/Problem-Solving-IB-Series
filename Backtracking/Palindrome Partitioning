@@ -1,0 +1,45 @@
+public class Solution {
+    public ArrayList<ArrayList<String>> partition(String a) {
+
+		ArrayList<ArrayList<String>> ans = new ArrayList<ArrayList<String>>();
+		partition(0, a, new ArrayList<String>(), ans);
+		return ans;
+
+	}
+
+	private void partition(int i, String str, ArrayList<String> al, ArrayList<ArrayList<String>> ans) {
+
+		if (i == str.length()) {
+			ans.add(new ArrayList<String>(al));
+			return;
+		}
+
+		for (int k = i + 1; k <= str.length(); k++) {
+
+			String t = str.substring(i, k);
+
+			if (isPalindrome(t)) {
+				al.add(t);
+				partition(k, str, al, ans);
+				al.remove(al.size() - 1);
+			}
+
+		}
+
+	}
+
+	public boolean isPalindrome(String str) {
+
+		int lo = 0, hi = str.length() - 1;
+
+		while (lo < hi) {
+
+			if (str.charAt(lo++) != str.charAt(hi--))
+				return false;
+
+		}
+
+		return true;
+
+	}
+}
