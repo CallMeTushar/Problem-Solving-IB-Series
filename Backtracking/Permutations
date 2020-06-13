@@ -1,0 +1,25 @@
+public class Solution {
+    public static ArrayList<ArrayList<Integer>> permute(ArrayList<Integer> arr) {
+
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		permute(0, arr, ans);
+		return ans;
+	}
+
+	private static void permute(int i, ArrayList<Integer> arr, ArrayList<ArrayList<Integer>> ans) {
+
+		if (i == arr.size()) {
+			ans.add(new ArrayList<Integer>(arr));
+			return;
+		}
+
+		for (int j = i; j < arr.size(); j++) {
+
+			Collections.swap(arr, i, j);
+			permute(i + 1, arr, ans);
+			Collections.swap(arr, i, j);
+
+		}
+
+	}
+}
