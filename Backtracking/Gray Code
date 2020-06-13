@@ -1,0 +1,30 @@
+public class Solution {
+	public static ArrayList<Integer> grayCode(int n) {
+
+		int[] arr = new int[] { 0 };
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+		fill(n, arr, ans);
+		return ans;
+
+	}
+
+	private static void fill(int n, int[] arr, ArrayList<Integer> ans) {
+
+		if (n == 0) {
+			ans.add(arr[0]);
+			return;
+		}
+
+		// leave the bit as it is
+
+		fill(n - 1, arr, ans);
+
+		// invert the ith LSB of arr[0].
+		arr[0] = arr[0] ^ (1 << n - 1);
+
+		fill(n - 1, arr, ans);
+		
+		// Do not backtrack as we need to work on updated value of arr[0] to get next gray code
+
+	}
+}
