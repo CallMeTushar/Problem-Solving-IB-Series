@@ -1,0 +1,65 @@
+public class Solution {
+    Set<Integer> b1, b2, b3, b4;
+
+	public ArrayList<ArrayList<String>> solveNQueens(int n) {
+
+		b1 = new HashSet<>();
+		b2 = new HashSet<>();
+		b3 = new HashSet<>();
+		b4 = new HashSet<>();
+
+		ArrayList<ArrayList<String>> ans = new ArrayList<ArrayList<String>>();
+		solve(0, n, new ArrayList<Integer>(), ans);
+
+		return ans;
+
+	}
+
+	private void solve(int cr, int n, ArrayList<Integer> al, ArrayList<ArrayList<String>> ans) {
+
+		if (cr == n) {
+
+			ArrayList<String> rr = new ArrayList<String>();
+			StringBuilder sb = new StringBuilder();
+
+			for (int i = 0; i < n; i++) {
+				sb.append('.');
+			}
+
+			for (int i = 0; i < n; i++) {
+				sb.setCharAt(al.get(i), 'Q');
+				rr.add(sb.toString());
+				sb.setCharAt(al.get(i), '.');
+			}
+
+			ans.add(rr);
+
+		}
+
+		for (int cc = 0; cc < n; cc++) {
+
+			if (safe(cr, cc, n)) {
+
+				b1.add(cr);
+				b2.add(cc);
+				b3.add(cr + cc);
+				b4.add(cr - cc);
+				al.add(cc);
+				solve(cr + 1, n, al, ans);
+				b1.remove(cr);
+				b2.remove(cc);
+				b3.remove(cr + cc);
+				b4.remove(cr - cc);
+				al.remove(al.size() - 1);
+			}
+
+		}
+
+	}
+
+	private boolean safe(int cr, int cc, int n) {
+
+		return !b1.contains(cr) && !b2.contains(cc) && !b3.contains(cr + cc) && !b4.contains(cr - cc);
+
+	}
+}
