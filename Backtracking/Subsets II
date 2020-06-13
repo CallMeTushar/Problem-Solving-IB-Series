@@ -22,6 +22,5 @@ public class Solution {
 			al.remove(al.size() - 1);
 
 		}
-
 	}
 }
