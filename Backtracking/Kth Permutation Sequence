@@ -1,0 +1,63 @@
+public class Solution {
+    public static String getPermutation(int n, int k) {
+
+		long[] fact = new long[n];
+		fact[0] = 1L;
+
+		for (int i = 1; i < fact.length; i++) {
+			fact[i] = fact[i - 1] * i;
+      
+      // Needed as if n=60000 and k=2 then simple ans but factorial overflows. So set it to int max.(rem=0)
+			if (fact[i] > k) {
+
+				while (i < fact.length) {
+					fact[i] = Integer.MAX_VALUE;
+					i++;
+				}
+
+				break;
+
+			}
+		}
+
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+
+		for (int i = 1; i <= n; i++) {
+			arr.add(i);
+		}
+		int i = 0;
+
+		while (k > 1) {
+			long idx = (k - 1) / fact[n - i - 1];
+			idx += i;
+
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+
+			for (int j = 0; j < i; j++) {
+				temp.add(arr.get(j));
+			}
+
+			temp.add(arr.get((int) idx));
+
+			for (int j = i; j < arr.size(); j++) {
+				if (j != idx)
+					temp.add(arr.get(j));
+			}
+
+			arr = temp;
+
+			k = (int) (k - (idx - i) * fact[n - i - 1]);
+			i++;
+
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		for (i = 0; i < arr.size(); i++) {
+			sb.append(arr.get(i));
+		}
+
+		return sb.toString();
+
+	}
+}
