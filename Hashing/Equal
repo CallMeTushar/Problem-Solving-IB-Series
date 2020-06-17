@@ -2,61 +2,69 @@ public class Solution {
 public static int[] equal(int[] arr) {
 
 		HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
+		int[] ans = new int[] {};
 
 		for (int i = 0; i < arr.length; i++) {
 
-			if (!map.containsKey(arr[i])) {
-				map.put(arr[i], new ArrayList<Integer>());
-			}
+			for (int j = i + 1; j < arr.length; j++) {
 
-			map.get(arr[i]).add(i);
-		}
+				int sum = arr[i] + arr[j];
 
-		for (int i = 0; i < arr.length; i++) {
+				if (map.containsKey(sum)) {
 
-			for (int j = i+1; j < arr.length; j++) {
-				
-				for (int k = 0; k < arr.length; k++) {
-					
-					if(i==k || j==k)
-						continue;
+					int[] temp = new int[4];
+					temp[2] = i;
+					temp[3] = j;
+					temp[0] = map.get(sum).get(0);
+					temp[1] = map.get(sum).get(1);
 
-					int sv = arr[i] + arr[j] - arr[k];
+					if (dup(temp)) {
 
-					if (map.containsKey(sv)) {
+						if (ans.length == 0)
+							ans = temp;
 
-						int si = -1;
-//						System.out.println(map.get(sv));
+					else {
 
-						for (int p = 0; p < map.get(sv).size(); p++) {
-							int val = map.get(sv).get(p);
-							if (val != i && val != j && val != k) {
-//								System.out.println(val+" val");
-								si = val;
-								break;
-							}
-						}
-						
-//						System.out.println(si);
+							boolean rep = false;
+							for (int i1 = 0; i1 < ans.length; i1++) {
+	                            if (ans[i1] < temp[i1]) break;
+	                            if (ans[i1] > temp[i1]) {
+	                                rep = true;
+	                                break;
+	                            }
+	                        }
 
-						if (si != -1) {
-							int[] ans = new int[4];
-							ans[0] = i;
-							ans[1] = j;
-							ans[2] = k;
-							ans[3] = si;
-							return ans;
+							if (rep)
+								ans = temp;
+
 						}
 
 					}
 
 				}
 
-			}
+				else {
+					ArrayList<Integer> al = new ArrayList<Integer>();
+					al.add(i);
+					al.add(j);
+					map.put(sum, al);
+				}
 
+			}
 		}
 
-		return new int[] {};
+		return ans;
 
 	}
+
+	private static boolean dup(int[] arr) {
+		int[] ans = Arrays.copyOf(arr, arr.length);
+		Arrays.sort(ans);
+		for (int x = 1; x < ans.length; x++) {
+			if (ans[x] == ans[x - 1])
+				return false;
+		}
+		return true;
+	}
+    
 }
