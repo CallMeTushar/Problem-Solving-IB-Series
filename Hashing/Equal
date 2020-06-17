@@ -1,0 +1,62 @@
+public class Solution {
+public static int[] equal(int[] arr) {
+
+		HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
+
+		for (int i = 0; i < arr.length; i++) {
+
+			if (!map.containsKey(arr[i])) {
+				map.put(arr[i], new ArrayList<Integer>());
+			}
+
+			map.get(arr[i]).add(i);
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+
+			for (int j = i+1; j < arr.length; j++) {
+				
+				for (int k = 0; k < arr.length; k++) {
+					
+					if(i==k || j==k)
+						continue;
+
+					int sv = arr[i] + arr[j] - arr[k];
+
+					if (map.containsKey(sv)) {
+
+						int si = -1;
+//						System.out.println(map.get(sv));
+
+						for (int p = 0; p < map.get(sv).size(); p++) {
+							int val = map.get(sv).get(p);
+							if (val != i && val != j && val != k) {
+//								System.out.println(val+" val");
+								si = val;
+								break;
+							}
+						}
+						
+//						System.out.println(si);
+
+						if (si != -1) {
+							int[] ans = new int[4];
+							ans[0] = i;
+							ans[1] = j;
+							ans[2] = k;
+							ans[3] = si;
+							return ans;
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+		return new int[] {};
+
+	}
+}
