@@ -1,0 +1,74 @@
+public class Solution {
+   public static String minWindow(String str, String pat) {
+
+		if (pat.length() > str.length()) {
+			return "";
+		}
+
+		if (pat.length() == 0)
+			return "";
+
+		HashMap<Character, Integer> patmap = new HashMap<Character, Integer>();
+
+		for (int i = 0; i < pat.length(); i++) {
+			char ch = pat.charAt(i);
+			patmap.put(ch, patmap.getOrDefault(ch, 0) + 1);
+		}
+
+		// map for sliding window
+		HashMap<Character, Integer> windowmap = new HashMap<Character, Integer>();
+
+		// No of unique characters to be mapped
+		int uniqueChars = patmap.size();
+
+		// No of unique characters mapped till now
+		int formed = 0;
+
+		int l = 0, r = 0;
+		int si = -1, ei = -1, minLen = Integer.MAX_VALUE;
+
+		while (r < str.length()) {
+
+			// add one character from right in current window
+			char cr = str.charAt(r);
+
+			windowmap.put(cr, windowmap.getOrDefault(cr, 0) + 1);
+
+			if (patmap.containsKey(cr) && patmap.get(cr).intValue() == windowmap.get(cr))
+				formed++;
+
+			// contract the window to remove any unnecessary characters from left if we get
+			// desired result as we need min window
+
+			
+			
+			while (l <= r && formed == uniqueChars) {
+
+				char cl = str.charAt(l);
+
+				if (r - l + 1 < minLen) {
+					si = l;
+					ei = r;
+					minLen = ei - si + 1;
+				}
+
+				// remove cl from window
+
+				windowmap.put(cl, windowmap.get(cl) - 1);
+
+				if (patmap.containsKey(cl) && patmap.get(cl).intValue() > windowmap.get(cl).intValue()) {
+					formed--;
+				}
+
+				// decrease window size
+				l++;
+			}
+			// increase window size
+			r++;
+
+		}
+
+		return si != -1 ? str.substring(si, ei + 1) : "";
+
+	}
+}
