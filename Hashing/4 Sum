@@ -1,0 +1,51 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> fourSum(ArrayList<Integer> arr, int target) {
+        Collections.sort(arr);
+
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		Set<ArrayList<Integer>> s = new HashSet<>();
+
+		for (int lo = 0; lo < arr.size(); lo++) {
+
+			for (int hi = lo + 1; hi < arr.size(); hi++) {
+
+				int i = hi + 1, j = arr.size() - 1;
+
+				while (i < j) {
+
+					int sum = arr.get(i) + arr.get(lo) + arr.get(hi) + arr.get(j);
+
+					if (sum == target) {
+
+						ArrayList<Integer> t = new ArrayList<Integer>();
+					t.add(arr.get(lo));
+						t.add(arr.get(hi));
+						t.add(arr.get(i));
+						t.add(arr.get(j));
+
+						if (!s.contains(t)) {
+							ans.add(t);
+							s.add(t);
+						}
+
+						i++;
+						j--;
+
+					}
+
+					else if (sum < target) {
+						i++;
+					}
+
+					else {
+						j--;
+					}
+
+				}
+
+			}
+		}
+
+		return ans;
+	}
+}
