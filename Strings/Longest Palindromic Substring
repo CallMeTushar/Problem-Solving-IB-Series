@@ -1,0 +1,52 @@
+public class Solution {
+static class Pair {
+		int si;
+		int ei;
+
+		public Pair(int s, int e) {
+			si = s;
+			ei = e;
+		}
+	}
+
+	public static String longestPalindrome(String str) {
+
+		if (str.length() == 0) {
+			return "";
+		}
+
+		int si = 0, ei = 0;
+
+		for (int i = 0; i < str.length(); i++) {
+
+			Pair p1 = grow(str, i, i);
+			Pair p2 = grow(str, i, i + 1);
+
+			if (p1.ei - p1.si > ei - si) {
+				si = p1.si;
+				ei = p1.ei;
+			}
+
+			if (p2.ei - p2.si > ei - si) {
+				si = p2.si;
+				ei = p2.ei;
+			}
+
+		}
+
+		return str.substring(si, ei + 1);
+
+	}
+
+	public static Pair grow(String str, int lo, int hi) {
+
+		while (lo >= 0 && hi < str.length() && str.charAt(lo) == str.charAt(hi)) {
+			lo--;
+			hi++;
+		}
+
+		return new Pair(lo + 1, hi - 1);
+	}
+
+
+}
