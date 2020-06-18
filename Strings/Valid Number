@@ -1,0 +1,61 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public static int isNumber(String str) {
+
+		// .1 => true
+
+		str = str.trim(); // trim leading ad trailing spaces
+
+		boolean numFound = false;
+		boolean expFound = false;
+		boolean decFound = false;
+
+		for (int i = 0; i < str.length(); i++) {
+
+			char ch = str.charAt(i);
+
+			if (Character.isDigit(ch)) {
+				numFound = true;
+			}
+
+			else if (ch == '.') {
+
+				if (decFound || expFound) {
+					return 0;
+				}
+
+				decFound = true;
+				numFound=false;
+
+			}
+
+			else if (ch == 'e') {
+
+				if (!numFound || expFound)
+					return 0;
+
+				expFound = true;
+				numFound = false; // V imp
+
+			}
+
+			else if (ch == '+' || ch == '-') {
+
+				if (i == 0 || str.charAt(i - 1) == 'e') {
+					// No Problem
+				}
+
+				else
+					return 0;
+
+			}
+
+			else
+				return 0;
+
+		}
+
+		return numFound?1:0;
+
+	}
+}
