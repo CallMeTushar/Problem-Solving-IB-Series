@@ -31,8 +31,8 @@ public class Solution {
 
 					ArrayList<Double> t = new ArrayList<Double>();
 					t.add((y2 - y1) * 1.0 / (x2 - x1));
-					double m = ((x2 * y1 - x1 * y2) * 1.0) / (x1 - x2);
-					t.add(m);
+					double c = ((x2 * y1 - x1 * y2) * 1.0) / (x1 - x2);
+					t.add(c);
 
 					if (!map.containsKey(t)) {
 						map.put(t, new HashSet<Integer>());
