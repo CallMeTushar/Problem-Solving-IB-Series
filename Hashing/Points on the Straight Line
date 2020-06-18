@@ -1,0 +1,61 @@
+public class Solution {
+	
+	public int maxPoints(ArrayList<Integer> x, ArrayList<Integer> y){
+	    
+	    if (x.size() == 1) {
+			return 1;
+		}
+		
+		HashMap<ArrayList<Double>, Set<Integer>> map = new HashMap<ArrayList<Double>, Set<Integer>>();
+		HashMap<Integer, Set<Integer>> sp = new HashMap<Integer, Set<Integer>>(); // for those lines || to y axis
+
+		for (int i = 0; i < x.size(); i++) {
+
+			for (int j = i + 1; j < y.size(); j++) {
+
+				int x1 = x.get(i), x2 = x.get(j), y1 = y.get(i), y2 = y.get(j);
+
+				if (x1 == x2) { // parallel to y axis
+
+					if (!sp.containsKey(x1)) {
+						sp.put(x1, new HashSet<>());
+					}
+
+					sp.get(x1).add(i);
+					sp.get(x1).add(j);
+
+				}
+
+
+				else {
+
+					ArrayList<Double> t = new ArrayList<Double>();
+					t.add((y2 - y1) * 1.0 / (x2 - x1));
+					double m = ((x2 * y1 - x1 * y2) * 1.0) / (x1 - x2);
+					t.add(m);
+
+					if (!map.containsKey(t)) {
+						map.put(t, new HashSet<Integer>());
+					}
+					map.get(t).add(i);
+					map.get(t).add(j);
+				}
+
+			}
+
+		}
+
+		int ans = 0;
+
+		for (Set<Integer> s : sp.values()) {
+			ans = Math.max(ans, s.size());
+		}
+
+		for (Set<Integer> s : map.values()) {
+			ans = Math.max(ans, s.size());
+		}
+
+		return ans;
+
+	}
+}
