@@ -1,0 +1,85 @@
+public class Solution {
+public static ArrayList<String> prettyJSON(String str) {
+
+		int c = 0;
+
+		ArrayList<String> ans = new ArrayList<String>();
+
+		int i = 0, j = 0;
+
+		while (j < str.length()) {
+
+			char ch = str.charAt(j);
+
+			if (ch == '{' || ch == '[') {
+
+				StringBuilder sb = new StringBuilder();
+
+				for (int x = 0; x < c; x++)
+					sb.append('\t');
+
+				// adding characters before { or [ in ans
+				if (i != j)
+					ans.add(sb.toString() + str.substring(i, j));
+
+				ans.add(sb.toString() + ch);
+				c++;
+				j++;
+				i = j;
+
+			}
+
+			else if (ch == '}' || ch == ']') {
+
+				StringBuilder sb = new StringBuilder();
+
+				for (int x = 0; x < c - 1; x++)
+					sb.append('\t');
+
+				// adding characters before { or [ in ans
+				if (i != j)
+					ans.add(sb.toString() + "\t" + str.substring(i, j));
+
+				if (j < str.length() - 1 && str.charAt(j + 1) == ',') {
+					ans.add(sb.toString() + ch + ",");
+					j++;
+				}
+
+				else {
+					ans.add(sb.toString() + ch);
+				}
+
+				c--;
+				j++;
+				i = j;
+
+			}
+
+			else if (ch == ',') {
+
+				StringBuilder sb = new StringBuilder();
+
+				for (int x = 0; x < c; x++)
+					sb.append('\t');
+
+				ans.add(sb.toString() + str.substring(i, j + 1));
+
+				j++;
+				i = j;
+
+			}
+
+			else {
+				j++;
+			}
+
+		}
+
+		if (i != j) {
+			ans.add(str.substring(i, j));
+		}
+
+		return ans;
+
+	}
+}
