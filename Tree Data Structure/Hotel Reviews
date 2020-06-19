@@ -1,0 +1,59 @@
+public class Solution {
+public static ArrayList<Integer> solve(String a, ArrayList<String> B) {
+
+		Set<String> words = new HashSet<>();
+		int i = 0;
+
+		while (i < a.length()) {
+			StringBuilder sb = new StringBuilder();
+
+			while (i < a.length() && a.charAt(i) != '_') {
+				sb.append(a.charAt(i));
+				i++;
+			}
+
+			i++;
+
+			words.add(sb.toString());
+		}
+
+		ArrayList<ArrayList<Integer>> arr = new ArrayList<ArrayList<Integer>>();
+
+		for (i = 0; i <= words.size(); i++) {
+			arr.add(new ArrayList<Integer>());
+		}
+
+		for (int j = 0; j < B.size(); j++) {
+
+			String str = B.get(j);
+			i = 0;
+			int c = 0;
+
+			while (i < str.length()) {
+				StringBuilder sb = new StringBuilder();
+
+				while (i < str.length() && str.charAt(i) != '_') {
+					sb.append(str.charAt(i));
+					i++;
+				}
+
+				i++;
+
+				if (words.contains(sb.toString()))
+					c++;
+			}
+
+			arr.get(c).add(j);
+		}
+
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+
+		for (i = arr.size() - 1; i >= 0; i--) {
+			for (int j = 0; j < arr.get(i).size(); j++)
+				ans.add(arr.get(i).get(j));
+		}
+
+		return ans;
+
+	}
+}
