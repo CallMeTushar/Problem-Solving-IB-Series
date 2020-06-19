@@ -1,0 +1,99 @@
+public class Solution {
+      public static int compareVersion(String v1, String v2) {
+
+		int i = 0, j = 0;
+
+		while (i < v1.length() && j < v2.length()) {
+
+			// Ignore leading zeroes
+
+			while (i < v1.length() && v1.charAt(i) == '0')
+				i++;
+
+			while (j < v2.length() && v2.charAt(j) == '0')
+				j++;
+
+			// traverse till end of string or dot whichever is earlier
+
+			int ie = i, je = j;
+
+			while (ie < v1.length() && v1.charAt(ie) != '.')
+				ie++;
+
+			while (je < v2.length() && v2.charAt(je) != '.')
+				je++;
+
+			if (ie - i > je - j) {
+				return 1;
+			}
+
+			else if (ie - i < je - j) {
+				return -1;
+			}
+
+			else {
+
+				while (i < ie && j < je) {
+
+					if (v1.charAt(i) > v2.charAt(j)) {
+						return 1;
+					}
+
+					else if (v1.charAt(i) < v2.charAt(j)) {
+						return -1;
+					}
+
+					i++;
+					j++;
+				}
+
+			}
+
+			ie++;
+			je++;
+			i = ie;
+			j = je;
+
+		}
+
+		while (i < v1.length()) {
+
+			while (i < v1.length() && v1.charAt(i) == '0')
+				i++;
+
+			int ie = i;
+
+			while (ie < v1.length() && v1.charAt(ie) != '.')
+				ie++;
+
+			if (ie > i)
+				return 1;
+			
+			ie++;
+			i = ie;
+
+		}
+
+		while (j < v2.length()) {
+
+			int je = j;
+
+			while (j < v2.length() && v2.charAt(j) == '0')
+				j++;
+
+			while (je < v2.length() && v2.charAt(je) != '.')
+				je++;
+
+			if (je > j)
+				return -1;
+			
+
+			je++;
+			j = je;
+
+		}
+
+		return 0;
+
+	}
+}
