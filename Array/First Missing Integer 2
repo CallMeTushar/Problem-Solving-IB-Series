@@ -1,0 +1,40 @@
+class Solution {
+   	public static int firstMissingPositive(int[] arr) {
+
+		if (arr.length == 0) {
+			return 1;
+		}
+
+		int i = 0;
+
+		while (i < arr.length) {
+
+			if (arr[i] == i+1 || arr[i] < 1 || arr[i] > arr.length) {
+				i++;
+				continue;
+			}
+
+			int idx = arr[i]-1;
+
+			if (arr[idx] == idx+1) {
+				i++;
+				continue;
+			}
+
+			int t1 = arr[i];
+			int t2 = arr[idx];
+
+			arr[i] = t2;
+			arr[idx] = t1;
+
+		}
+
+		for (i = 0; i < arr.length; i++) {
+			if (arr[i] != i+1)
+				return i+1;
+		}
+
+		return arr.length+1;
+
+	}
+}
