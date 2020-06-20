@@ -20,7 +20,6 @@ public class Solution {
 			boolean flag = true;
 
 			while (j < i + len) {
-
 				sb.append(str.charAt(j));
 				c++;
 
@@ -44,7 +43,6 @@ public class Solution {
 				}
 				
 				j++;
-
 			}
 
 			if (flag)
