@@ -1,0 +1,82 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+
+ Stack<TreeNode>min;
+ Stack<TreeNode>max;
+
+    public void fill(TreeNode root) {
+        min=new Stack<>();
+        max=new Stack<>();
+        insertLeft(root);
+        insertRight(root);
+    }
+    
+    public void insertLeft(TreeNode root){
+         while(root!=null){
+            min.push(root);
+            root=root.left;
+        }
+    }
+    
+      public void insertRight(TreeNode root){
+         while(root!=null){
+            max.push(root);
+            root=root.right;
+        }
+    }
+
+    /** @return the next smallest number */
+    public int nextMin() {
+        
+        TreeNode top=min.pop();
+        int ans=top.val;
+        insertLeft(top.right);
+        
+        return ans;
+        
+    }   
+    
+     public int nextMax() {
+        
+        TreeNode top=max.pop();
+        int ans=top.val;
+        insertRight(top.left);
+        return ans;
+        
+    } 
+    
+    public int t2Sum(TreeNode A, int B) {
+        
+        fill(A);
+        int left=nextMin();
+        int right=nextMax();
+        
+        while(left<right){
+            
+            if(left+right==B)
+            return 1;
+            
+            else if(left+right<B)
+                left=nextMin();
+            
+            else 
+            right=nextMax();
+            
+        }
+        
+        return 0;
+        
+    }
+}
