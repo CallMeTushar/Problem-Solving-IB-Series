@@ -1,0 +1,23 @@
+public class Solution {
+    public int nchoc(int k, ArrayList<Integer> arr) {
+
+		int mod = (int) (1e9 + 7);
+
+		PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Collections.reverseOrder());
+
+		for (int i = 0; i < arr.size(); i++) {
+			pq.add(arr.get(i));
+		}
+
+		long ans = 0;
+
+		for (int i = 0; i < k; i++) {
+			int peek = pq.poll();
+			ans = (ans + peek) % mod;
+			pq.add(peek / 2);
+		}
+
+		return (int)ans;
+
+	}
+}
