@@ -12,54 +12,45 @@
  * }
  */
 public class Solution {
+    
+    boolean v1,v2;
+    
     public int lca(TreeNode A, int B, int C) {
+        v1=v2=false;
         
-        ArrayList<Integer>p1=new ArrayList<>();
-        ArrayList<Integer>p2=new ArrayList<>();
+        int ans=findLca(A,B,C);
         
-        findPath(A,B,p1);
-        findPath(A,C,p2);
-        
-        int ans=-1;
-        
-        Set<Integer>s=new HashSet<>();
-        
-        for(int i=0;i<p1.size();i++){
-            s.add(p1.get(i));
-        }
-        
-        for(int i=0;i<p2.size();i++){
-            
-            if(s.contains(p2.get(i)))
-                ans=p2.get(i);
-            
-            else
-            break;
-        }
-        
-        return ans;
-        
+        return (v1&&v2)?ans:-1;
     }
     
-    public boolean findPath(TreeNode node,int val,ArrayList<Integer> arr){
+    public int findLca(TreeNode node,int b,int c){
         
         if(node==null)
-        return false;
+        return -1;
         
-        arr.add(node.val);
+        TreeNode temp=null;
         
-        if(node.val==val){
-        return true;
+        if(node.val==b){
+        v1=true;
+        temp=node;
         }
         
-        boolean a=findPath(node.left,val,arr);
-        boolean b=findPath(node.right,val,arr);
+        if(node.val==c){
+            temp=node;
+        v2=true;
+        }
         
-        if(a||b)
-        return true;
+        int x=findLca(node.left,b,c);
+        int y=findLca(node.right,b,c);
         
-        arr.remove(arr.size()-1);
-        return false;
+        if(temp!=null){
+            return node.val;
+        }
+        
+        if(x!=-1 && y!=-1)
+        return node.val;
+        
+        return x!=-1?x:y;
     }
     
 }
