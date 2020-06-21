@@ -1,0 +1,39 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+	public TreeNode flatten(TreeNode a) {
+	    
+	    if(a==null)
+	    return null;
+	    
+	    TreeNode l=flatten(a.left);
+	    TreeNode r=flatten(a.right);
+	    
+	    // Make LL connections in right
+	    a.left=null;
+	    
+	    a.right=l;
+	    TreeNode tail=getTail(a);
+	    tail.right=r;
+	    
+	    return a;
+	}
+	
+	public TreeNode getTail(TreeNode a){
+	    
+	    if(a==null)
+	    return null;
+	    
+	    while(a.right!=null)
+	    a=a.right;
+	    
+	    return a;
+	}
+}
