@@ -1,0 +1,65 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    public int lca(TreeNode A, int B, int C) {
+        
+        ArrayList<Integer>p1=new ArrayList<>();
+        ArrayList<Integer>p2=new ArrayList<>();
+        
+        findPath(A,B,p1);
+        findPath(A,C,p2);
+        
+        int ans=-1;
+        
+        Set<Integer>s=new HashSet<>();
+        
+        for(int i=0;i<p1.size();i++){
+            s.add(p1.get(i));
+        }
+        
+        for(int i=0;i<p2.size();i++){
+            
+            if(s.contains(p2.get(i)))
+                ans=p2.get(i);
+            
+            else
+            break;
+        }
+        
+        return ans;
+        
+    }
+    
+    public boolean findPath(TreeNode node,int val,ArrayList<Integer> arr){
+        
+        if(node==null)
+        return false;
+        
+        arr.add(node.val);
+        
+        if(node.val==val){
+        return true;
+        }
+        
+        boolean a=findPath(node.left,val,arr);
+        boolean b=findPath(node.right,val,arr);
+        
+        if(a||b)
+        return true;
+        
+        arr.remove(arr.size()-1);
+        return false;
+    }
+    
+}
