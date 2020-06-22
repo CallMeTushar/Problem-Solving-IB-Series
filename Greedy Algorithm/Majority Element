@@ -1,0 +1,26 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+   public int majorityElement(final int[] arr) {
+
+		int temp = 0;
+		int c = 0;
+
+		for (int val : arr) {
+
+			if (c == 0) {
+				temp = val;
+				c++;
+			}
+
+			else if (val == temp)
+				c++;
+
+			else
+				c--;
+
+		}
+
+		return temp;
+
+	}
+}
