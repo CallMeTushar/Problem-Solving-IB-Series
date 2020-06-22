@@ -1,0 +1,90 @@
+public class Solution {
+    static int mod = 1000000007;
+
+	public static long pow(long x, long n) {
+
+		if (n == 0)
+			return 1;
+
+		long p = pow(x, n / 2);
+		p = (p * p) % mod;
+
+		if (n % 2 == 1) {
+			p = (p * x) % mod;
+		}
+
+		return p;
+
+	}
+
+	static class Pair {
+		int left;
+		int right;
+
+		public Pair(int l, int r) {
+			left = l;
+			right = r;
+		}
+	}
+
+	public static Pair findLR(int n) {
+		int log = (int) Math.floor(Math.log(n) / Math.log(2));
+		int logPow = (int) Math.pow(2, log);
+
+		int lastLevel = (n + 1) - logPow;
+
+		int prevLevel = n - 1 - lastLevel;
+		int left = prevLevel / 2;
+		int right = left;
+
+		int temp = logPow / 2;
+
+		if (lastLevel <= temp) {
+			left += lastLevel;
+		}
+
+		else {
+			left += temp;
+			right += lastLevel - temp;
+		}
+
+		return new Pair(left, right);
+
+	}
+
+	public static int solve(int n) {
+
+		if (n == 1)
+			return 1;
+
+		long[] fact = new long[n + 1];
+		fact[0] = 1L;
+
+		for (int i = 1; i < fact.length; i++) {
+			fact[i] = (fact[i - 1] * i) % mod;
+		}
+
+		long[] dp = new long[n + 1];
+		dp[0] = dp[1] = 1;
+
+		for (int i = 2; i <= n; i++) {
+
+			Pair p = findLR(i);
+			int l = p.left;
+			int r = p.right;
+
+			// ways of choosing distinct nos for each left and right
+			long temp = (fact[i - 1] * pow(fact[i - 1 - r], mod - 2)) % mod;
+			temp = (temp * pow(fact[r], mod - 2)) % mod;
+
+			dp[i] = (temp * dp[l]) % mod;
+			dp[i] = (dp[i] * dp[r]) % mod;
+
+		}
+
+		return (int) dp[n];
+
+	}
+
+}
+
