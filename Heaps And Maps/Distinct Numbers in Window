@@ -1,0 +1,46 @@
+public class Solution {
+    public static int[] dNums(int[] arr, int k) {
+
+		if (k > arr.length) {
+			return new int[0];
+		}
+
+		int[] ans = new int[arr.length - k + 1];
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+		// Process first k elements
+
+		int i = 0;
+
+		for (; i < k; i++) {
+			map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+		}
+
+		int j = 0;
+
+		while (i < arr.length) {
+
+			ans[j++] = map.size();
+
+			int val =arr[i - k];
+			int freq = map.get(val) - 1;
+
+			if (freq > 0)
+				map.put(val, freq);
+
+			else
+				map.remove(val);
+
+			map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+			
+			i++;
+
+		}
+
+		ans[j] = map.size();
+
+		return ans;
+
+	}
+
+}
