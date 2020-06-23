@@ -1,0 +1,19 @@
+public class Solution {
+    public static int climbStairs(int n) {
+		
+		int lo=1,hi=1;
+		
+		if(n<=1) {
+			return 1;
+		}
+		
+		for(int i=2;i<=n;i++) {
+			
+			int sum=lo+hi;
+			lo=hi;
+			hi=sum;
+		}
+		
+		return hi;
+		
+	}}
