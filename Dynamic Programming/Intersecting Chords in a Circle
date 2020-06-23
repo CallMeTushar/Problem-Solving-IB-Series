@@ -1,0 +1,25 @@
+public class Solution {
+    public static int chordCnt(int n) {
+
+		int mod = (int) (1e9 + 7);
+
+		long[] dp = new long[n + 1];
+		dp[0] = dp[1] = 1L;
+
+		for (int i = 2; i <= n; i++) {
+
+			int left = 0, right = 2 * i - 2;
+
+			while (left <= 2 * i && right >= 0) {
+				dp[i] = (dp[i] + dp[left / 2] * dp[right / 2]) % mod;
+				left += 2;
+				right -= 2;
+			}
+
+		}
+
+		return (int) dp[n];
+
+	}
+    
+}
