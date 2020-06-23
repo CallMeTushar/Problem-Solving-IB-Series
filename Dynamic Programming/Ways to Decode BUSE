@@ -1,0 +1,28 @@
+public class Solution {
+    
+static int mod = (int) (1e9 + 7);
+
+	public static int numDecodings(String str) {
+
+		int a = 1; // i+1 : base case
+		int b = 0; // i+2
+
+		for (int i = str.length() - 1; i >= 0; i--) {
+
+			int ans = 0;
+
+			if (str.charAt(i) != '0') {
+				ans = a;
+
+				if (i + 1 < str.length() && Integer.valueOf(str.charAt(i) + "" + str.charAt(i + 1)) <= 26)
+					ans = (ans + b) % mod;
+			}
+
+			b = a;
+			a = ans;
+		}
+
+		return a;
+
+	}
+}
