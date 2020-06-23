@@ -1,0 +1,35 @@
+public class Solution {
+    
+public static int numDecodings(String str) {
+
+		int[] dp = new int[str.length()];
+		Arrays.fill(dp, -1);
+		return decode(0, str, dp);
+	}
+
+	static int mod = (int) (1e9 + 7);
+
+	private static int decode(int i, String str, int[] dp) {
+
+		if (i == str.length()) {
+			return 1;
+		}
+
+		if (dp[i] != -1) {
+			return dp[i];
+		}
+
+		int ans = 0;
+
+		if (str.charAt(i) != '0') {
+			ans = decode(i + 1, str, dp);
+
+			if (i + 1 < str.length() && Integer.valueOf(str.charAt(i) + "" + str.charAt(i + 1)) <= 26) {
+				ans = (ans + decode(i + 2, str, dp)) % mod;
+			}
+		}
+
+		return dp[i] = ans % mod;
+
+	}
+}
