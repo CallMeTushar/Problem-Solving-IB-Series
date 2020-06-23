@@ -1,0 +1,29 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+   public int lis(final int[] arr) {
+
+		int[] dp = new int[arr.length];
+		Arrays.fill(dp, 1);
+
+		for (int i = 1; i < arr.length; i++) {
+
+			for (int j = 0; j < i; j++) {
+
+				if (arr[j] < arr[i]) {
+					dp[i] = Math.max(dp[i], dp[j] + 1);
+				}
+
+			}
+
+		}
+
+		int ans = 0;
+
+		for (int val : dp) {
+			ans = Math.max(ans, val);
+		}
+
+		return ans;
+
+	}
+}
