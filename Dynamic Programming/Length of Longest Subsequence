@@ -1,0 +1,44 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public static int longestSubsequenceLength(final int[] arr) {
+
+		int n = arr.length;
+
+		int[] inc = new int[arr.length];
+		Arrays.fill(inc, 1);
+
+		for (int i = 1; i < arr.length; i++) {
+
+			for (int j = 0; j < i; j++) {
+
+				if (arr[j] < arr[i]) {
+					inc[i] = Math.max(inc[i], inc[j] + 1);
+				}
+
+			}
+
+		}
+
+		int dec[] = new int[n];
+		Arrays.fill(dec, 1);
+
+		for (int i = arr.length - 2; i >= 0; i--) {
+
+			for (int j = i + 1; j < arr.length; j++) {
+
+				if (arr[j] < arr[i]) {
+					dec[i] = Math.max(dec[i], dec[j] + 1);
+				}
+
+			}
+
+		}
+
+		int ans = 0;
+
+		for (int i = 0; i < n; i++) {
+			ans = Math.max(ans, inc[i] + dec[i] - 1);
+		}
+
+		return ans;
+	}}
