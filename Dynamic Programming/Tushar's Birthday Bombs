@@ -1,0 +1,45 @@
+public class Solution {
+public static int[] solve(int strength, int[] arr) {
+
+		int min = Integer.MAX_VALUE;
+		int minI = -1;
+
+		for (int i = 0; i < arr.length; i++) {
+
+			if (arr[i] < min) {
+				min = arr[i];
+				minI = i;
+			}
+
+		}
+
+		int[] ans = new int[strength / min];
+		Arrays.fill(ans, minI);
+		int curStr = min * ans.length;
+		int j = 0;
+
+		int i = 0;
+
+		while (i < minI) {
+
+			if (j >= ans.length || curStr == strength) {
+				return ans;
+			}
+
+			if (curStr + arr[i] - min <= strength) {
+				ans[j++] = i;
+				curStr = curStr + arr[i] - min;
+			}
+
+			else {
+				i++;
+			}
+
+		}
+
+		return ans;
+
+	}
+
+
+}
