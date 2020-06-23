@@ -1,0 +1,17 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+  public int maxProfit(final int[] arr) {
+
+		int maxGain = 0;
+		int max = 0;
+
+		for (int i = arr.length - 1; i >= 0; i--) {
+			maxGain = Math.max(maxGain, max - arr[i]);
+			max = Math.max(max, arr[i]);
+		}
+
+		return maxGain;
+
+	}
+    
+}
