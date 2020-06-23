@@ -1,0 +1,31 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public int maxProfit(final int[] arr) {
+        
+        if(arr.length<=1)
+        return 0;
+        
+		int[] diff = new int[arr.length - 1];
+
+		for (int i = 1; i < arr.length; i++) {
+			diff[i - 1] = arr[i] - arr[i - 1];
+		}
+
+		int ms = 0;
+		int cs = 0;
+
+		for (int i = 0; i < diff.length; i++) {
+
+			cs += diff[i];
+
+			if (cs < 0)
+				cs = 0;
+
+			ms = Math.max(ms, cs);
+
+		}
+
+		return ms;
+
+	}
+}
