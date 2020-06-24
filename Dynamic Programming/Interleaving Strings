@@ -1,0 +1,40 @@
+public class Solution {
+   public static int isInterleave(String A, String B, String C) {
+
+		if (A.length() + B.length() != C.length())
+			return 0;
+
+		int[][] dp = new int[A.length() + 1][B.length() + 1];
+
+		for (int[] a : dp)
+			Arrays.fill(a, -1);
+
+		return find(0, A, 0, B, 0, C, dp);
+
+	}
+
+	private static int find(int i, String a, int j, String b, int k, String c, int[][] dp) {
+
+		if (k == c.length()) {
+			return 1;
+		}
+
+		if (dp[i][j] != -1)
+			return dp[i][j];
+
+		int ans = 0;
+
+		if (i < a.length() && a.charAt(i) == c.charAt(k)) {
+			ans = ans + find(i + 1, a, j, b, k + 1, c, dp);
+		}
+
+		if (j < b.length() && b.charAt(j) == c.charAt(k)) {
+			ans = ans + find(i, a, j + 1, b, k + 1, c, dp);
+		}
+
+		dp[i][j] = ans > 0 ? 1 : 0;
+
+		return dp[i][j];
+
+	}
+}
