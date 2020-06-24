@@ -1,0 +1,41 @@
+public class Solution {
+    
+	public int minCut(String A) {
+
+		int[] dp = new int[A.length()];
+		Arrays.fill(dp, -1);
+		return minCut(0, A, dp);
+	}
+	
+   private int minCut(int lo, String str, int[] dp) {
+
+		if (isPalindrome(lo, str.length() - 1, str)) {
+			return 0;
+		}
+
+		if (dp[lo] != -1)
+			return dp[lo];
+
+		int ans = str.length();
+
+		for (int hi = lo; hi < str.length(); hi++) {
+			if (isPalindrome(lo, hi, str)) {
+				ans = Math.min(ans, minCut(hi + 1, str, dp) + 1);
+			}
+		}
+
+		return dp[lo] = ans;
+
+	}
+
+	public boolean isPalindrome(int lo, int hi, String str) {
+
+		while (lo < hi) {
+			if (str.charAt(lo++) != str.charAt(hi--))
+				return false;
+		}
+
+		return true;
+
+	}
+}
