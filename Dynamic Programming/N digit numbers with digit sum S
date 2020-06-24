@@ -1,0 +1,31 @@
+public class Solution {
+    public static int solve(int d, int s) {
+
+		long[][] dp = new long[d + 1][s + 1];
+		int mod = (int) (1e9 + 7);
+
+		for (int dig = 1; dig < dp.length; dig++) {
+
+			if (dig == 1) {
+				for (int sum = 0; sum <= Math.min(9, dp[0].length - 1); sum++)
+					dp[dig][sum] = 1;
+				continue;
+			}
+
+			for (int sum = 1; sum < dp[0].length; sum++) {
+
+				for (int i = 0; i <= 9; i++) {
+
+					if (sum - i > 0)
+						dp[dig][sum] = (dp[dig][sum] + dp[dig - 1][sum - i]) % mod;
+
+				}
+
+			}
+
+		}
+
+		return (int) dp[d][s];
+
+	}
+}
