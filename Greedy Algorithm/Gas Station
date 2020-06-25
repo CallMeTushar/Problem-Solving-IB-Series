@@ -1,0 +1,27 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+  public int canCompleteCircuit(final int[] a, final int[] b) {
+
+		long roundTrip = 0;
+		long curTank = 0;
+		int start = 0;
+
+		for (int i = 0; i < a.length; i++) {
+
+			long change = (long) a[i] - b[i];
+
+			roundTrip += change;
+			curTank += change;
+
+			if (curTank < 0) {
+				// => fuel over cannot move ahead. So change starting point
+				curTank = 0;
+				start = i + 1;
+			}
+
+		}
+
+		return roundTrip >= 0 ? start : -1;
+
+	}
+}
