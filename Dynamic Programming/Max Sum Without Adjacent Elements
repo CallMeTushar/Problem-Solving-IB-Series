@@ -1,0 +1,35 @@
+public class Solution {
+   
+public static int adjacent(int[][] arr) {
+
+		int[][] dp = new int[arr.length][arr[0].length];
+
+		for (int[] t : dp)
+			Arrays.fill(t, -1);
+
+		int ans = 0;
+		ans = Math.max(ans, find(0, 0, arr, dp));
+		ans = Math.max(ans, find(1, 0, arr, dp));
+		ans = Math.max(ans, find(0, 1, arr, dp));
+		ans = Math.max(ans, find(1, 1, arr, dp));
+
+		return ans;
+
+	}
+
+	private static int find(int i, int j, int[][] arr, int[][] dp) {
+
+		if (j >= arr[0].length)
+			return 0;
+
+		if (dp[i][j] != -1)
+			return dp[i][j];
+
+		int a = Math.max(find(0, j + 2, arr, dp), find(0, j + 3, arr, dp));
+		int b = Math.max(find(1, j + 2, arr, dp), find(1, j + 3, arr, dp));
+
+		return dp[i][j] = Math.max(a, b) + arr[i][j];
+
+	}
+
+}
