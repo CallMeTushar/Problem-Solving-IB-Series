@@ -1,0 +1,61 @@
+public class Solution {
+   public static ArrayList<Integer> rodCut(int n, ArrayList<Integer> arr) {
+
+		Collections.sort(arr);
+
+		arr.add(n);
+
+		if (arr.get(0) != 0)
+			arr.add(0, 0);
+
+		long[][] dp = new long[arr.size()][arr.size()];
+		int[][] ans = new int[arr.size()][arr.size()];
+
+		for (long[] a : dp)
+			Arrays.fill(a, -1);
+
+		findAns(0, arr.size() - 1, arr, dp, ans);
+
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+
+		fill(arr, 0, arr.size() - 1, temp, ans);
+		return temp;
+
+	}
+
+	private static void fill(ArrayList<Integer> arr, int i, int j, ArrayList<Integer> temp, int[][] ans) {
+
+		if (j - i < 2)
+			return;
+
+		temp.add(arr.get(ans[i][j]));
+		fill(arr, i, ans[i][j], temp, ans);
+		fill(arr, ans[i][j], j, temp, ans);
+
+	}
+
+	private static long findAns(int i, int j, ArrayList<Integer> arr, long[][] dp, int[][] index) {
+
+		if (j - i < 2)
+			return 0;
+
+		if (dp[i][j] != -1)
+			return dp[i][j];
+
+		long ans = Long.MAX_VALUE;
+		int bestIdx = -1;
+
+		for (int k = i + 1; k <= j - 1; k++) {
+			long temp = arr.get(j) - arr.get(i) + findAns(i, k, arr, dp, index) + findAns(k, j, arr, dp, index);
+			if (temp < ans) {
+				ans = temp;
+				bestIdx = k;
+			}
+		}
+
+		index[i][j] = bestIdx;
+
+		return dp[i][j] = ans;
+
+	}
+}
