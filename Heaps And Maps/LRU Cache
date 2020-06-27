@@ -1,0 +1,70 @@
+public class Solution {
+
+	class Node implements Comparable<Node> {
+		int key;
+		int val;
+		int accessTime;
+
+		public Node(int k, int v, int a) {
+			key = k;
+			val = v;
+			accessTime = a;
+		}
+
+		@Override
+		public int compareTo(Node o) {
+			return this.accessTime - o.accessTime;
+		}
+
+	}
+
+	PriorityQueue<Node> pq;
+	HashMap<Integer, Node> map;
+	int capacity;
+	int size;
+	int time = 1;
+
+	public Solution(int capacity) {
+		map = new HashMap<>();
+		this.capacity = capacity;
+		size = 0;
+		pq = new PriorityQueue<>();
+	}
+
+	public int get(int key) {
+
+		if (map.containsKey(key)) {
+			map.get(key).accessTime = time++;
+			pq.remove(map.get(key));
+			pq.add(map.get(key));
+			return map.get(key).val;
+		}
+
+		return -1;
+
+	}
+
+	public void set(int key, int value) {
+
+		if (map.containsKey(key)) {
+			map.get(key).val = value;
+			map.get(key).accessTime = time++;
+			pq.remove(map.get(key));
+			pq.add(map.get(key));
+			return;
+		}
+
+		if (size == capacity) {
+			Node removed = pq.poll();
+			map.remove(removed.key);
+			size--;
+		}
+
+		Node nn = new Node(key, value, time++);
+		map.put(key, nn);
+		pq.add(nn);
+		size++;
+
+	}
+
+}
