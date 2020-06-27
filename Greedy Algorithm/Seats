@@ -1,0 +1,29 @@
+public class Solution {
+    public int seats(String str) {
+
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == 'x')
+				arr.add(i);
+		}
+
+		if (arr.size() == 0)
+			return 0;
+
+		int mid = arr.size() / 2;
+		int curOrig = arr.get(mid);
+
+		long ans = 0;
+
+		for (int i = 0; i < arr.size(); i++) {
+
+			int newPos = curOrig - mid + i;
+			int oldPos = arr.get(i);
+			ans = (ans + Math.abs(newPos - oldPos)) % 10000003;
+		}
+
+		return (int) ans;
+
+	}
+}
