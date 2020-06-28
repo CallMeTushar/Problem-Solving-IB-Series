@@ -1,0 +1,29 @@
+public class Solution {
+   public static int candy(int[] arr) {
+
+		int[] fill = new int[arr.length];
+		Arrays.fill(fill, 1); // Min candies for each is 1
+
+		for (int i = 1; i < arr.length; i++) {
+			if (arr[i] > arr[i - 1])
+				fill[i] = fill[i - 1] + 1;
+		}
+
+		for (int i = arr.length - 2; i >= 0; i--) {
+
+			if (arr[i] > arr[i + 1]) {
+				fill[i] = Math.max(fill[i], fill[i + 1]+1);
+			}
+
+		}
+
+	int sum = 0;
+
+		for (int val : fill) {
+			sum += val;
+		}
+
+		return sum;
+
+	}
+}
