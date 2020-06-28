@@ -1,0 +1,70 @@
+public class Solution {
+   public static int solve(int[][] arr) {
+
+		int[][] temp = new int[arr.length][arr[0].length];
+
+		for (int i = 0; i < arr.length; i++) {
+
+			for (int j = 0; j < arr[0].length; j++) {
+
+				if (i == 0)
+					temp[i][j] = arr[i][j];
+
+				else {
+
+					if (arr[i][j] == 1)
+						temp[i][j] = temp[i - 1][j] + 1;
+
+					else
+						temp[i][j] = 0;
+
+				}
+
+			}
+
+		}
+
+		// Swaps the columns of respective rows
+		for (int[] a : temp)
+			sort(a, arr.length);
+
+		int ans = 0;
+
+//		Finding max area after swaps
+
+		for (int i = 0; i < temp.length; i++) {
+
+			for (int j = 0; j < temp[0].length; j++) {
+				ans = Math.max(ans, temp[i][j] * (j + 1));
+			}
+
+		}
+
+		return ans;
+
+	}
+
+	// sorting in descending order using counting sort
+	public static void sort(int[] arr, int r) {
+
+		int[] freq = new int[r + 1];
+
+		for (int val : arr) {
+			freq[val]++;
+		}
+
+		int i = 0;
+
+		for (int j = freq.length - 1; j >= 0; j--) {
+
+			int val = freq[j];
+
+			while (val > 0) {
+				arr[i++] = j;
+				val--;
+			}
+
+		}
+
+	}
+}
