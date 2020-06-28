@@ -1,0 +1,146 @@
+public class Solution {
+    public static int[][] queenAttack(String[] arr) {
+
+        int[][] temp = new int[arr.length][arr[0].length()];
+
+        for (int i = 0; i < arr.length; i++) {
+
+            for (int j = 0; j < arr[0].length(); j++) {
+
+                if (arr[i].charAt(j) == '1')
+                    fill(i, j, temp, arr);
+            }
+
+        }
+
+        return temp;
+
+    }
+
+    private static void fill(int row, int col, int[][] temp, String[] arr) {
+
+        int r, c;
+
+        r = row - 1;
+        c = col;
+
+        while (r >= 0) {
+
+            temp[r][c] += 1;
+
+            if (arr[r].charAt(c) == '1') {
+                break;
+            }
+
+            r--;
+
+        }
+
+        r = row + 1;
+        c = col;
+
+        while (r < arr.length) {
+
+            temp[r][c] += 1;
+
+            if (arr[r].charAt(c) == '1') {
+                break;
+            }
+
+            r++;
+
+        }
+
+        r = row;
+        c = col - 1;
+
+        while (c >= 0) {
+
+            temp[r][c] += 1;
+
+            if (arr[r].charAt(c) == '1') {
+                break;
+            }
+
+            c--;
+
+        }
+
+        r = row;
+        c = col + 1;
+
+        while (c < arr[0].length()) {
+
+            temp[r][c] += 1;
+
+            if (arr[r].charAt(c) == '1') {
+                break;
+            }
+
+            c++;
+
+        }
+
+        r = row - 1;
+        c = col - 1;
+
+        while (r >= 0 && c >= 0) {
+            temp[r][c] += 1;
+
+            if (arr[r].charAt(c) == '1') {
+                break;
+            }
+
+            r--;
+            c--;
+
+        }
+
+        r = row - 1;
+        c = col + 1;
+
+        while (r >= 0 && c < arr[0].length()) {
+            temp[r][c] += 1;
+
+            if (arr[r].charAt(c) == '1') {
+                break;
+            }
+
+            r--;
+            c++;
+
+        }
+
+        r = row + 1;
+        c = col - 1;
+
+        while (r < arr.length && c >= 0) {
+            temp[r][c] += 1;
+
+            if (arr[r].charAt(c) == '1') {
+                break;
+            }
+
+            r++;
+            c--;
+
+        }
+
+        r = row + 1;
+        c = col + 1;
+
+        while (r < arr.length && c < arr[0].length()) {
+            temp[r][c] += 1;
+
+            if (arr[r].charAt(c) == '1') {
+                break;
+            }
+
+            r++;
+            c++;
+
+        }
+
+    }
+
+}
