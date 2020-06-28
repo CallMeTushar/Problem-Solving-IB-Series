@@ -1,0 +1,86 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    public int[] recoverTree(TreeNode A) {
+        
+        TreeNode cur = A;
+        int min=Integer.MAX_VALUE;
+        int max=Integer.MIN_VALUE;
+        int prev=0;
+        boolean firstVis=true;
+        
+
+		while (cur != null) {
+
+			   if (cur.left == null) {
+			    if(firstVis){
+			        firstVis=false;
+			    }
+			    
+			    else{
+			        
+			        if(prev>cur.val){
+			            
+			            min=Math.min(min,cur.val);
+			            max=Math.max(max,prev);
+			         }
+			        
+			    }
+			    
+			    prev=cur.val;
+				cur = cur.right;
+			}
+
+			else {
+
+//				Find predecessor in left sub tree
+				TreeNode pred = cur.left;
+
+//				1st condition is obvious. 2nd : We are making links and if we return to the node => already visited so remove the link
+				while (pred.right != null && pred.right != cur) {
+					pred = pred.right;
+				}
+
+				if (pred.right == null) {
+					pred.right = cur; // Make link
+					cur = cur.left; // Traverse ahead
+				}
+
+				else {
+					pred.right = null; // Remove link
+		            if(firstVis){
+			        firstVis=false;
+			    }
+			    
+			    else{
+			        
+			        if(prev>cur.val){
+			            
+			            min=Math.min(min,cur.val);
+			            max=Math.max(max,prev);
+			         }
+			        
+			    }
+			    
+			        prev=cur.val;
+					cur = cur.right; // Traverse ahead
+				}
+
+			}
+
+		}
+		
+		return new int[]{min,max};
+    }
+}
