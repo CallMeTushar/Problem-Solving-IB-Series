@@ -1,0 +1,37 @@
+public class Solution {
+   public static int numDistinct(String a, String b) {
+
+		int[] dp = new int[b.length() + 1];
+		int prev = 0, diag = 0;
+
+		for (int i = a.length(); i >= 0; i--) {
+			for (int j = b.length(); j >= 0; j--) {
+
+				prev = dp[j];
+
+				if (j == b.length())
+					dp[j] = 1;
+
+				else if (i == a.length())
+					dp[j] = 0;
+
+				else {
+
+					char c1 = a.charAt(i);
+					char c2 = b.charAt(j);
+
+					if (c1 == c2) {
+						dp[j] += diag;
+					}
+
+				}
+
+				diag = prev;
+
+			}
+		}
+
+		return dp[0];
+
+	}
+}
