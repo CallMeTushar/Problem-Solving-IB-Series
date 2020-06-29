@@ -1,0 +1,38 @@
+public class Solution {
+           public static int[] solve(int a, int b, int c, int d) {
+
+        int[] ugly = new int[d + 1];
+        ugly[0] = 1;
+
+        int i1 = 0, i2 = 0, i3 = 0;
+
+        for (int i = 1; i <= d; i++) {
+
+            int min = Math.min(Math.min(ugly[i1] * a, ugly[i2] * b), ugly[i3] * c);
+            ugly[i] = min;
+
+            if (min == ugly[i1] * a) {
+                i1++;
+            }
+
+            if (min == ugly[i2] * b) {
+                i2++;
+            }
+
+            if (min == ugly[i3] * c) {
+                i3++;
+            }
+
+        }
+
+        int[] ans = new int[d];
+
+        for (int i = 1; i <= d; i++) {
+            ans[i - 1] = ugly[i];
+        }
+
+        return ans;
+
+    }
+
+}
