@@ -1,0 +1,51 @@
+public class Solution {
+   public static int arrange(String str, int total) {
+		int[][] dp = new int[str.length() + 1][total + 1];
+
+		for (int i = str.length(); i >= 0; i--) {
+
+			for (int stables = 0; stables <= total; stables++) {
+
+				if (i == str.length()) {
+					dp[i][stables] = stables == 0 ? 0 : -1;
+				}
+
+				else if (stables == 0) {
+					dp[i][stables] = -1;
+
+				}
+
+				else {
+					int cw = 0;
+					int cb = 0;
+					int ans = -1;
+
+					for (int k = i; k < str.length(); k++) {
+
+						if (str.charAt(k) == 'W') {
+							cw++;
+						}
+
+						else {
+							cb++;
+						}
+
+						int temp = dp[k + 1][stables - 1];
+						if (temp >= 0) {
+
+							temp += cw * cb;
+							if (ans == -1 || temp < ans)
+								ans = temp;
+						}
+
+					}
+
+					dp[i][stables] = ans;
+				}
+			}
+
+		}
+
+		return dp[0][total];
+
+	}}
