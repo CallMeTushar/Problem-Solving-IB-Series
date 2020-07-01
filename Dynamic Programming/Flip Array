@@ -1,0 +1,71 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public static int solve(int[] arr) {
+
+		int total = 0;
+
+		for (int val : arr) {
+			total += val;
+		}
+
+		total /= 2;
+		int[] dp = new int[total + 1];
+
+		for (int i = arr.length; i >= 0; i--) {
+
+			int[] temp = new int[total + 1];
+
+			for (int sum = 0; sum <= total; sum++) {
+
+				if (sum == 0)
+					temp[sum] = 0;
+
+				else if (i == arr.length)
+					temp[sum] = -1;
+
+				else {
+
+					int inc = -1;
+
+					if (sum - arr[i] >= 0) {
+						inc = dp[sum - arr[i]];
+					}
+
+					if (inc >= 0)
+						inc++;
+
+					int exc = dp[sum];
+
+					int ans;
+
+					if (inc < 0)
+						ans = exc;
+
+					else if (exc < 0)
+						ans = inc;
+
+					else {
+						ans = Math.min(inc, exc);
+					}
+
+					temp[sum] = ans;
+
+				}
+
+			}
+
+			dp = temp;
+
+		}
+
+		for (int i = total; i >= 0; i--) {
+
+			if (dp[i] >= 0)
+				return dp[i];
+		}
+
+		return -1;
+
+	}
+
+}
