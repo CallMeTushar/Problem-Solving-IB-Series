@@ -1,0 +1,78 @@
+public class Solution {
+   class primsPair implements Comparable<primsPair> {
+		int vtx;
+		int cost;
+
+		@Override
+		public int compareTo(primsPair o) {
+			return this.cost - o.cost;
+		}
+
+		public primsPair(int v, int c) {
+			vtx = v;
+			cost = c;
+		}
+	}
+
+	public int solve(int A, int[][] arr) {
+
+		HashMap<Integer, HashMap<Integer, Integer>> map = new HashMap<Integer, HashMap<Integer, Integer>>();
+
+		for (int i = 1; i <= A; i++) {
+			map.put(i, new HashMap<Integer, Integer>());
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			map.get(arr[i][0]).put(arr[i][1], arr[i][2]);
+			map.get(arr[i][1]).put(arr[i][0], arr[i][2]);
+		}
+
+//		Prims
+
+		PriorityQueue<primsPair> pq = new PriorityQueue<>();
+		pq.add(new primsPair(1, 0));
+		int[] cost = new int[A + 1];
+
+		Arrays.fill(cost, Integer.MAX_VALUE);
+
+		boolean vis[] = new boolean[A + 1];
+
+		while (!pq.isEmpty()) {
+
+			primsPair rp = pq.poll();
+
+			if (vis[rp.vtx])
+				continue;
+
+			vis[rp.vtx] = true;
+			cost[rp.vtx] = rp.cost;
+
+			for (int nbr : map.get(rp.vtx).keySet()) {
+
+				if (!vis[nbr]) {
+
+					int oc = cost[nbr];
+					int nc = map.get(rp.vtx).get(nbr);
+
+					if (nc < oc) {
+						cost[nbr] = nc;
+						pq.add(new primsPair(nbr, nc));
+					}
+
+				}
+
+			}
+
+		}
+
+		int ans = 0;
+
+	for(int i=1;i<cost.length;i++)
+			ans+=cost[i];
+
+
+		return ans;
+
+	}
+
+}
