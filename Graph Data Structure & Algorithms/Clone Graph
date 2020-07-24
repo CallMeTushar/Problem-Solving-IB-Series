@@ -1,0 +1,53 @@
+/**
+ * Definition for undirected graph.
+ * class UndirectedGraphNode {
+ *     int label;
+ *     List<UndirectedGraphNode> neighbors;
+ *     UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
+ * };
+ */
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        HashMap<UndirectedGraphNode,UndirectedGraphNode>map=new HashMap<>();
+        dfs1(node,map);
+        dfs2(node,map,new HashMap<UndirectedGraphNode,Boolean>());
+        
+        return map.get(node);
+    }
+    
+    public void dfs1(UndirectedGraphNode node, HashMap<UndirectedGraphNode,UndirectedGraphNode>map){
+
+        if(map.containsKey(node)){
+            return;
+        }
+        
+        UndirectedGraphNode nn=new UndirectedGraphNode(node.label);
+        map.put(node,nn);
+        
+        for(int i=0;i<node.neighbors.size();i++){
+           nn.neighbors.add(node.neighbors.get(i));
+        }
+        
+        for(int i=0;i<node.neighbors.size();i++){
+            dfs1(node.neighbors.get(i),map);
+        }
+    }
+    
+    public void dfs2(UndirectedGraphNode node, HashMap<UndirectedGraphNode,UndirectedGraphNode>map,HashMap<UndirectedGraphNode,Boolean> vis){
+    
+    if(vis.containsKey(node))
+    return;
+    
+    vis.put(node,true);
+    
+    for(int i=0;i<node.neighbors.size();i++){
+        dfs2(node.neighbors.get(i),map,vis);
+    }
+    
+    for(int i=0;i<node.neighbors.size();i++){
+         map.get(node).neighbors.set(i,map.get(map.get(node).neighbors.get(i)));
+    }    
+        
+    
+    }
+}
