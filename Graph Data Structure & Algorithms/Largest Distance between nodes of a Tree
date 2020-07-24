@@ -1,0 +1,59 @@
+public class Solution {
+   static int ans;
+
+	public static int solve(int[] arr) {
+
+		int root = -1;
+		HashMap<Integer, HashMap<Integer, Integer>> map = new HashMap<>();
+
+		for (int i = 0; i < arr.length; i++) {
+			map.put(i, new HashMap<>());
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+
+			if (arr[i] == -1) {
+				root = i;
+			}
+
+			else {
+				map.get(i).put(arr[i], 0);
+				map.get(arr[i]).put(i, 0);
+			}
+
+		}
+
+		ans = 0;
+		dfs(-1, root, map);
+		return ans;
+
+	}
+
+	private static int dfs(int par, int node, HashMap<Integer, HashMap<Integer, Integer>> map) {
+
+		int left = -1, right = -1;
+
+		for (int nbr : map.get(node).keySet()) {
+
+			if (nbr != par) {
+
+				int rr = dfs(node, nbr, map);
+
+				if (rr > right) {
+					left = right;
+					right = rr;
+				}
+
+				else if (rr > left) {
+					left = rr;
+				}
+
+			}
+
+		}
+
+		ans = Math.max(ans, left + right + 2);
+		return right + 1;
+
+	}
+}
