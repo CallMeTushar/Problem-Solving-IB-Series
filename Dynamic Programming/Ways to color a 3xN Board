@@ -1,0 +1,22 @@
+public class Solution {
+     public int solve(int a) {
+
+		int mod = (int) (1e9 + 7);
+
+//		w : 3
+//		y : 2
+
+		long w = 24, y = 12;
+
+		for (int i = 2; i <= a; i++) {
+
+			long temp = w;
+			w = (10 * y + 11 * w) % mod;
+			y = (7 * y + 5 * temp) % mod;
+
+		}
+
+		return (int) ((w + y) % mod);
+
+	}
+}
